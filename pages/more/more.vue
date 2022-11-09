@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view id="more">
 		更多
 		<picker mode="selector" :range="range" @change="change" range-key="key">
 			<view>语言选择</view>
@@ -8,6 +8,12 @@
 		<view class="" v-for="item in list" :key="item" style="color:#fff">
 			{{item}}
 		</view>
+		<view class="language">
+			<text class="">语言选择</text>
+			<picker mode="selector" :range="range" @change="change" range-key="value" value="">
+				<view>{{range[index].value}}</view>
+			</picker>
+		</view>
 	</view>
 </template>
 
@@ -15,17 +21,23 @@
 	import {
 		ref
 	} from "vue";
+import { mainStore } from "../../store";
+	const store = mainStore()
+	const index = ref(0)
 	const range = [{
-			value: '中文',
-			key: 'zh'
+			value: '中文（简体）',
+			key: 'zh-CN'
 		},
 		{
-			value: '英文',
-			key: 'en'
+			value: 'English（US）',
+			key: 'en-US'
 		}
 	]
-	const change = (value: any) => {
-		// console.log(value);
+	// 选择语言
+	const change = (e: any) => {
+		index.value = e.detail.value
+		const str = range[index.value].key
+		store.getLanguage(str)
 	}
 
 	const list = ref([])
@@ -41,5 +53,27 @@
 </script>
 
 <style lang="scss">
+	#more {
+		padding: 20rpx;
 
+		.language {
+			display: flex;
+			justify-content: space-between;
+			width: 100%;
+			height: 80rpx;
+			line-height: 80rpx;
+			padding: 0 20rpx;
+			background-color: #57be7b;
+			box-sizing: border-box;
+
+			text {
+				width: 20%;
+			}
+
+			picker {
+				flex: 1;
+				text-align: right;
+			}
+		}
+	}
 </style>

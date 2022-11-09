@@ -46,6 +46,20 @@ export const mainStore = defineStore('main', {
 					}
 				}
 			})
+		},
+		getLanguage(language: string) {
+			uni.request({
+				url: `https://splatoon3.ink/data/locale/${language}.json`,
+				method: 'GET',
+				success: (res: any) => {
+					const { stages, rules } = res.data
+					const all = { ...stages, ...rules }
+					for (let key in all) {
+						this.zhCN[key] = all[key].name
+					}
+				}
+			})
+
 		}
 	}
 })
