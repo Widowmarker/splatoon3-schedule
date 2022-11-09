@@ -31,6 +31,7 @@
 	} from 'vue';
 	import {
 		onPullDownRefresh,
+		onShareAppMessage
 	} from '@dcloudio/uni-app'
 
 	const store = mainStore()
@@ -48,6 +49,13 @@
 		store.getSchedules().then(() => {
 			uni.stopPullDownRefresh()
 		})
+	})
+
+	onShareAppMessage(() => {
+		return {
+			title: 'Splatoon3日程',
+			path: '/pages/regularBattle/regularBattle'
+		}
 	})
 </script>
 

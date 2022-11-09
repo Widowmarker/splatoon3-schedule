@@ -15,8 +15,10 @@ export const mainStore = defineStore('main', {
 			return new Promise((resolve, reject) => {
 				uni.request({
 					url: 'https://splatoon3.ink/data/schedules.json',
+					// url: 'http://localhost/json',
 					method: 'GET',
 					success: (res: any) => {
+						console.log(res.data)
 						const { data: { regularSchedules, bankaraSchedules, coopGroupingSchedule } } = res.data
 						this.regularBattleSchedules = regularSchedules.nodes
 						this.anarchyBattleSchedules = bankaraSchedules.nodes
@@ -34,6 +36,7 @@ export const mainStore = defineStore('main', {
 		getCN() {
 			uni.request({
 				url: 'https://splatoon3.ink/data/locale/zh-CN.json',
+				// url: 'http://localhost/zh',
 				method: 'GET',
 				success: (res: any) => {
 					const { stages, rules } = res.data

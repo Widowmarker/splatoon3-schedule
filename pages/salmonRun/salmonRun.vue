@@ -47,10 +47,18 @@
 	} from '../../utils/common'
 	import {
 		onPullDownRefresh,
+		onShareAppMessage
 	} from '@dcloudio/uni-app'
 
 	export default defineComponent({
 		setup() {
+			onShareAppMessage(() => {
+				return {
+					title: 'Splatoon3日程',
+					path: '/pages/salmonRun/salmonRun'
+				}
+			})
+
 			const store = mainStore()
 
 			const {

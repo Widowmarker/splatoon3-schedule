@@ -1,0 +1,7 @@
+{
+	"permissions": {
+		"openapi": [
+			"myCloudFn" // 使用到的 云函数接口名
+		]
+	}
+}

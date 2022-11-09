@@ -39,6 +39,7 @@
 	} from "../../utils/common"
 	import {
 		onPullDownRefresh,
+		onShareAppMessage
 	} from '@dcloudio/uni-app'
 	import coopStage from "../../components/coopStage.vue"
 	import modelIcon from "../../components/modelIcon.vue"
@@ -65,6 +66,13 @@
 		store.getSchedules().then(() => {
 			uni.stopPullDownRefresh()
 		})
+	})
+	
+	onShareAppMessage(() => {
+		return {
+			title: 'Splatoon3日程',
+			path: '/pages/anarchyBattle/anarchyBattle'
+		}
 	})
 </script>
 
