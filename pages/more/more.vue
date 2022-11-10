@@ -15,6 +15,7 @@
 
 <script setup lang="ts">
 	import {
+		onMounted,
 		ref
 	} from "vue";
 	import {
@@ -88,7 +89,13 @@
 			mask: true
 		})
 		store.getLanguage(str).then((res) => {
-			if (res) uni.hideLoading()
+			if (res) {
+				uni.hideLoading()
+				uni.setStorage({
+					key: 'language',
+					data: str
+				})
+			}
 		}).catch(() => {
 			uni.showToast({
 				title: '语言切换失败',
@@ -96,6 +103,15 @@
 			})
 		})
 	}
+
+	onMounted(() => {
+		uni.getStorage({
+			key: 'language',
+			complete(res) {
+				if (res.data) index.value = range.findIndex(item => item.key === res.data)
+			}
+		})
+	})
 </script>
 
 <style lang="scss">

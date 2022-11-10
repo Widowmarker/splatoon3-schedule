@@ -15,6 +15,7 @@
 			})
 
 			const store = mainStore()
+			// 获取日程
 			store.getSchedules().then(() => {
 				uni.hideLoading()
 			}).catch(() => {
@@ -23,9 +24,13 @@
 					title: '日程加载失败( Ĭ ^ Ĭ )'
 				})
 			})
-			store.getLanguage()
-
-
+			// 获取语言
+			uni.getStorage({
+				key: 'language',
+				complete(res) {
+					store.getLanguage(res.data ?? 'zh-CN')
+				}
+			})
 		},
 		onShow: function() {
 			console.log('App Show')
