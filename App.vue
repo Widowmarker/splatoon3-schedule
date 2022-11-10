@@ -8,9 +8,24 @@
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
+
+			uni.showLoading({
+				title: '日程加载中...',
+				mask: true
+			})
+
 			const store = mainStore()
-			store.getSchedules()
+			store.getSchedules().then(() => {
+				uni.hideLoading()
+			}).catch(() => {
+				uni.hideLoading()
+				uni.showToast({
+					title: '日程加载失败( Ĭ ^ Ĭ )'
+				})
+			})
 			store.getLanguage()
+
+
 		},
 		onShow: function() {
 			console.log('App Show')

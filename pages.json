@@ -5,7 +5,7 @@
 			"style": {
 				"navigationBarTitleText": "涂地",
 				"enablePullDownRefresh": true,
-				"backgroundTextStyle": "dark",
+				"backgroundTextStyle": "light",
 				"backgroundColor": "#191919"
 			}
 		},
@@ -14,7 +14,7 @@
 			"style": {
 				"navigationBarTitleText": "真格",
 				"enablePullDownRefresh": true,
-				"backgroundTextStyle": "dark",
+				"backgroundTextStyle": "light",
 				"backgroundColor": "#191919"
 			}
 		},
@@ -23,7 +23,7 @@
 			"style": {
 				"navigationBarTitleText": "打工",
 				"enablePullDownRefresh": true,
-				"backgroundTextStyle": "dark",
+				"backgroundTextStyle": "light",
 				"backgroundColor": "#191919"
 			}
 		}
@@ -33,7 +33,6 @@
             {
                 "navigationBarTitleText": "更多",
                 "enablePullDownRefresh": false,
-				"backgroundTextStyle": "dark",
 				"backgroundColor": "#191919"
             }
             

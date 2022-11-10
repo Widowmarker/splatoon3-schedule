@@ -83,7 +83,18 @@
 	const change = (e: any) => {
 		index.value = e.detail.value
 		const str = range[index.value].key
-		store.getLanguage(str)
+		uni.showLoading({
+			title: '切换语言中...',
+			mask: true
+		})
+		store.getLanguage(str).then((res) => {
+			if (res) uni.hideLoading()
+		}).catch(() => {
+			uni.showToast({
+				title: '语言切换失败',
+				icon: "error"
+			})
+		})
 	}
 </script>
 

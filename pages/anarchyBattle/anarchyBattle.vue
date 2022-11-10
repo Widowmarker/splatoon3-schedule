@@ -18,7 +18,7 @@
 					</coopStage>
 				</view>
 			</view>
-			<view class="more" v-if="!isMore" @click="isMore = true">查看更多</view>
+			<view class="more" v-if="!isMore && list.length" @click="isMore = true">查看更多</view>
 		</view>
 	</view>
 </template>
@@ -99,7 +99,7 @@
 
 				&:first-child {
 					margin-top: 0;
-					padding-top: 50rpx;
+					padding-top: 32rpx;
 				}
 
 				.state {

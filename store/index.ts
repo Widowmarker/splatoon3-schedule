@@ -32,18 +32,23 @@ export const mainStore = defineStore('main', {
 		},
 		// 获取语言
 		getLanguage(language: string = 'zh-CN') {
-			wx.cloud.init()
-			wx.cloud.callFunction({
-				name: 'myCloudFn',
-				data: {
-					language
-				}
-			}).then((res: any) => {
-				const { stages, rules } = JSON.parse(res.result)
-				const all = { ...stages, ...rules }
-				for (let key in all) {
-					this.lang[key] = all[key].name
-				}
+			return new Promise((resolve, reject) => {
+				wx.cloud.init()
+				wx.cloud.callFunction({
+					name: 'myCloudFn',
+					data: {
+						language
+					}
+				}).then((res: any) => {
+					const { stages, rules } = JSON.parse(res.result)
+					const all = { ...stages, ...rules }
+					for (let key in all) {
+						this.lang[key] = all[key].name
+					}
+					resolve(true)
+				}).catch(() => {
+					reject(false)
+				})
 			})
 		}
 	}
