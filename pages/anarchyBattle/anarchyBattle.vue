@@ -9,7 +9,7 @@
 					<!-- 真格模式 -->
 					<view class="model">
 						<modelIcon :modelType="anarchy.vsRule.rule"></modelIcon>
-						{{zhCN[anarchy.vsRule.id]}}
+						{{lang[anarchy.vsRule.id]}}
 						<text class="splatoon2">{{typeObj[anarchy.mode]}}</text>
 					</view>
 					<!-- 地图 -->
@@ -48,7 +48,7 @@
 	const store = mainStore()
 	const {
 		anarchyBattleSchedules,
-		zhCN
+		lang
 	} = storeToRefs(store)
 
 	const typeObj = {
@@ -67,7 +67,7 @@
 			uni.stopPullDownRefresh()
 		})
 	})
-	
+
 	onShareAppMessage(() => {
 		return {
 			title: 'Splatoon3日程',
@@ -91,12 +91,16 @@
 
 		.container {
 			padding: 0 30rpx 0 50rpx;
-			overflow: hidden;
 
 			.block {
 				position: relative;
 				height: 550rpx;
 				margin-top: 50rpx;
+
+				&:first-child {
+					margin-top: 0;
+					padding-top: 50rpx;
+				}
 
 				.state {
 					position: absolute;

@@ -5,7 +5,7 @@ export const mainStore = defineStore('main', {
 			regularBattleSchedules: [] as any, // 涂地日程
 			anarchyBattleSchedules: [] as any, // 真格日程
 			salmonRunSchedules: [], // 打工日程
-			zhCN: {}
+			lang: {}
 		}
 	},
 	getters: {},
@@ -13,53 +13,38 @@ export const mainStore = defineStore('main', {
 		// 获取所有日程
 		getSchedules() {
 			return new Promise((resolve, reject) => {
-				uni.request({
-					url: 'https://splatoon3.ink/data/schedules.json',
-					// url: 'http://localhost/json',
-					method: 'GET',
-					success: (res: any) => {
-						console.log(res.data)
-						const { data: { regularSchedules, bankaraSchedules, coopGroupingSchedule } } = res.data
-						this.regularBattleSchedules = regularSchedules.nodes
-						this.anarchyBattleSchedules = bankaraSchedules.nodes
-						this.salmonRunSchedules = coopGroupingSchedule.regularSchedules.nodes
-						console.log(bankaraSchedules.nodes, '真格');
-						resolve(true)
-					},
-					fail: () => {
-						reject(false)
+				wx.cloud.init()
+				wx.cloud.callFunction({
+					name: 'myCloudFn',
+					data: {
+						type: 'schedules'
 					}
+				}).then((res: any) => {
+					const { data: { regularSchedules, bankaraSchedules, coopGroupingSchedule } } = JSON.parse(res.result)
+					this.regularBattleSchedules = regularSchedules.nodes
+					this.anarchyBattleSchedules = bankaraSchedules.nodes
+					this.salmonRunSchedules = coopGroupingSchedule.regularSchedules.nodes
+					resolve(true)
+				}).catch(() => {
+					reject(false)
 				})
 			})
 		},
-		// 获取中文
-		getCN() {
-			uni.request({
-				url: 'https://splatoon3.ink/data/locale/zh-CN.json',
-				// url: 'http://localhost/zh',
-				method: 'GET',
-				success: (res: any) => {
-					const { stages, rules } = res.data
-					const all = { ...stages, ...rules }
-					for (let key in all) {
-						this.zhCN[key] = all[key].name
-					}
+		// 获取语言
+		getLanguage(language: string = 'zh-CN') {
+			wx.cloud.init()
+			wx.cloud.callFunction({
+				name: 'myCloudFn',
+				data: {
+					language
+				}
+			}).then((res: any) => {
+				const { stages, rules } = JSON.parse(res.result)
+				const all = { ...stages, ...rules }
+				for (let key in all) {
+					this.lang[key] = all[key].name
 				}
 			})
-		},
-		getLanguage(language: string) {
-			uni.request({
-				url: `https://splatoon3.ink/data/locale/${language}.json`,
-				method: 'GET',
-				success: (res: any) => {
-					const { stages, rules } = res.data
-					const all = { ...stages, ...rules }
-					for (let key in all) {
-						this.zhCN[key] = all[key].name
-					}
-				}
-			})
-
 		}
 	}
 })

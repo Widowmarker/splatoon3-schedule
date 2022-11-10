@@ -15,7 +15,7 @@
 					<!-- 地图 -->
 					<view class="map-box">
 						<image :src="item.setting.coopStage.image.url" mode="" class="map"></image>
-						<text class="splatoon2">{{zhCN[item.setting.coopStage.id]}}</text>
+						<text class="splatoon2">{{lang[item.setting.coopStage.id]}}</text>
 					</view>
 					<!-- 武器 -->
 					<view class="weapons-box">
@@ -63,7 +63,7 @@
 
 			const {
 				salmonRunSchedules,
-				zhCN
+				lang
 			} = storeToRefs(store)
 
 
@@ -77,7 +77,7 @@
 			return {
 				handleTime,
 				salmonRunSchedules,
-				zhCN
+				lang
 			}
 		}
 
@@ -87,7 +87,7 @@
 <style lang="scss" scoped>
 	#salmonRun {
 		position: relative;
-		padding-bottom: 50rpx;
+		padding-bottom: 60rpx;
 		min-height: 100vh;
 
 		.time-bar {
@@ -173,6 +173,7 @@
 							line-height: 45rpx;
 							padding: 0 10rpx;
 							white-space: nowrap;
+							font-size: 24rpx;
 						}
 					}
 

@@ -3,11 +3,11 @@
 	<view class="coopStage">
 		<view class="stage-box image-left">
 			<image :src="leftUrl" mode=""></image>
-			<text class="splatoon2">{{zhCN[leftName]}}</text>
+			<text class="splatoon2">{{lang[leftName]}}</text>
 		</view>
 		<view class="stage-box image-right">
 			<image :src="rightUrl" mode=""></image>
-			<text class="splatoon2">{{zhCN[rightName]}}</text>
+			<text class="splatoon2">{{lang[rightName]}}</text>
 		</view>
 	</view>
 </template>
@@ -38,7 +38,7 @@
 	})
 	const store = mainStore()
 	const {
-		zhCN
+		lang
 	} = storeToRefs(store)
 </script>
 
@@ -69,6 +69,7 @@
 				padding: 0 10rpx;
 				white-space: nowrap;
 				color: #fff;
+				font-size: 24rpx;
 			}
 		}
 
