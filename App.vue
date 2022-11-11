@@ -21,12 +21,14 @@
 			}).catch(() => {
 				uni.hideLoading()
 				uni.showToast({
-					title: '日程加载失败( Ĭ ^ Ĭ )'
+					title: '日程加载失败',
+					icon: 'error'
 				})
 			})
 			// 获取语言
 			uni.getStorage({
 				key: 'language',
+				fail() {},
 				complete(res) {
 					store.getLanguage(res.data ?? 'zh-CN')
 				}

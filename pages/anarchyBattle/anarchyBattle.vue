@@ -1,22 +1,25 @@
 <template>
-	<view id="bankaraSchedules" class="splatoon">
+	<view class="bankaraSchedules splatoon">
 		<view class="time-bar"></view>
 		<view class="container">
-			<view class="block" v-for="item in list" :key="item?.startTime">
-				<!-- 时间 -->
-				<view class="time state">{{handleTime(item.startTime)}}</view>
-				<view class="challenge-and-open" v-for="(anarchy,idx) in item?.bankaraMatchSettings" :key="idx">
-					<!-- 真格模式 -->
-					<view class="model">
-						<modelIcon :modelType="anarchy.vsRule.rule"></modelIcon>
-						{{lang[anarchy.vsRule.id]}}
-						<text class="splatoon2">{{typeObj[anarchy.mode]}}</text>
+			<view class="block" v-for="item in list" :key="item?.startTime"
+				:class="!item.bankaraMatchSettings && 'empty'">
+				<template v-if="item.bankaraMatchSettings">
+					<!-- 时间 -->
+					<view class="time state">{{handleTime(item.startTime)}}</view>
+					<view class="challenge-and-open" v-for="(anarchy,idx) in item.bankaraMatchSettings" :key="idx">
+						<!-- 真格模式 -->
+						<view class="model">
+							<modelIcon :modelType="anarchy.vsRule.rule"></modelIcon>
+							{{lang[anarchy.vsRule.id]}}
+							<text class="splatoon2">{{typeObj[anarchy.mode]}}</text>
+						</view>
+						<!-- 地图 -->
+						<coopStage :leftUrl="anarchy.vsStages[0].image.url" :leftName="anarchy.vsStages[0].id"
+							:rightUrl="anarchy.vsStages[1].image.url" :rightName="anarchy.vsStages[1].id">
+						</coopStage>
 					</view>
-					<!-- 地图 -->
-					<coopStage :leftUrl="anarchy.vsStages[0].image.url" :leftName="anarchy.vsStages[0].id"
-						:rightUrl="anarchy.vsStages[1].image.url" :rightName="anarchy.vsStages[1].id">
-					</coopStage>
-				</view>
+				</template>
 			</view>
 			<view class="more" v-if="!isMore && list.length" @click="isMore = true">查看更多</view>
 		</view>
@@ -77,7 +80,7 @@
 </script>
 
 <style lang="scss" scoped>
-	#bankaraSchedules {
+	.bankaraSchedules {
 		position: relative;
 		padding-bottom: 50rpx;
 		min-height: 100vh;
@@ -137,6 +140,11 @@
 						}
 					}
 				}
+			}
+
+			.empty {
+				height: 0;
+				margin-top: 0;
 			}
 
 			.more {

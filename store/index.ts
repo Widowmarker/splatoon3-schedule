@@ -21,6 +21,7 @@ export const mainStore = defineStore('main', {
 					}
 				}).then((res: any) => {
 					const { data: { regularSchedules, bankaraSchedules, coopGroupingSchedule } } = JSON.parse(res.result)
+					console.log(bankaraSchedules.nodes);
 					this.regularBattleSchedules = regularSchedules.nodes
 					this.anarchyBattleSchedules = bankaraSchedules.nodes
 					this.salmonRunSchedules = coopGroupingSchedule.regularSchedules.nodes

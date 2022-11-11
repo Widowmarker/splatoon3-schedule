@@ -36,7 +36,25 @@
 				"backgroundColor": "#191919"
             }
             
-        }
+        },
+		{
+			"path": "pages/more/about",
+			"style" :
+			{
+			    "navigationBarTitleText": "关于",
+			    "enablePullDownRefresh": false,
+				"backgroundColor": "#191919"
+			}
+		},
+		{
+			"path": "pages/more/support",
+			"style" :
+			{
+			    "navigationBarTitleText": "支持作者",
+			    "enablePullDownRefresh": false,
+				"backgroundColor": "#191919"
+			}
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
@@ -71,7 +89,9 @@
 			},
 			{
 				"pagePath": "pages/more/more",
-				"text": "更多"
+				"text": "更多",
+				"iconPath": "static/more.png",
+				"selectedIconPath": "static/more-selected.png"
 			}
 		]
 	}

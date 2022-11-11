@@ -1,5 +1,5 @@
 <template>
-	<view id="more">
+	<view class="more">
 		<view class="avatar">
 			<image class="little-buddy" src="../../static/little-buddy.png" mode=""></image>
 		</view>
@@ -9,7 +9,8 @@
 				<view>{{range[index].value}}</view>
 			</picker>
 		</view>
-		<view class="about row">关于</view>
+		<view class="row" @click="toAbout">关于</view>
+		<view class="row" @click="toSupport">支持作者</view>
 	</view>
 </template>
 
@@ -104,9 +105,24 @@
 		})
 	}
 
+	// 跳转到关于页
+	const toAbout = () => {
+		uni.navigateTo({
+			url: './about'
+		})
+	}
+
+	// 跳转到支持页
+	const toSupport = () => {
+		uni.navigateTo({
+			url: './support'
+		})
+	}
+
 	onMounted(() => {
 		uni.getStorage({
 			key: 'language',
+			fail() {},
 			complete(res) {
 				if (res.data) index.value = range.findIndex(item => item.key === res.data)
 			}
@@ -114,8 +130,8 @@
 	})
 </script>
 
-<style lang="scss">
-	#more {
+<style lang="scss" scoped>
+	.more {
 		padding: 0 40rpx;
 
 		.avatar {
@@ -149,7 +165,7 @@
 
 
 			text {
-				width: 20%;
+				flex: 1;
 			}
 
 			picker {

@@ -1,5 +1,5 @@
 <template>
-	<view id="salmonRun" class="splatoon">
+	<view class="salmonRun splatoon">
 		<view class="time-bar">
 			<view class="state open">Open!</view>
 			<view class="state next">Next!</view>
@@ -85,7 +85,7 @@
 </script>
 
 <style lang="scss" scoped>
-	#salmonRun {
+	.salmonRun {
 		position: relative;
 		padding-bottom: 60rpx;
 		min-height: 100vh;

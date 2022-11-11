@@ -1,13 +1,16 @@
 <template>
-	<view id="regularBattle" class="splatoon">
+	<view class="regularBattle splatoon">
 		<view class="time-bar"></view>
 		<view class="container">
-			<view class="block" v-for="item in list" :key="item?.startTime">
-				<view class="time state">{{handleTime(item.startTime)}}</view>
-				<coopStage :leftUrl="item?.regularMatchSetting.vsStages[0].image.url"
-					:leftName="item?.regularMatchSetting.vsStages[0].id"
-					:rightUrl="item?.regularMatchSetting.vsStages[1].image.url"
-					:rightName="item?.regularMatchSetting.vsStages[1].id"></coopStage>
+			<view class="block" v-for="item in list" :key="item?.startTime"
+				:class="!item.regularMatchSetting && 'empty'">
+				<template v-if="item.regularMatchSetting">
+					<view class="time state">{{handleTime(item.startTime)}}</view>
+					<coopStage :leftUrl="item.regularMatchSetting.vsStages[0].image.url"
+						:leftName="item.regularMatchSetting.vsStages[0].id"
+						:rightUrl="item.regularMatchSetting.vsStages[1].image.url"
+						:rightName="item.regularMatchSetting.vsStages[1].id"></coopStage>
+				</template>
 			</view>
 			<view class="more" v-if="!isMore && list.length" @click="isMore = true">查看更多</view>
 		</view>
@@ -60,7 +63,7 @@
 </script>
 
 <style lang="scss" scoped>
-	#regularBattle {
+	.regularBattle {
 		position: relative;
 		padding-bottom: 50rpx;
 		min-height: 100vh;
@@ -105,6 +108,11 @@
 					position: absolute;
 					top: 70rpx;
 				}
+			}
+
+			.empty {
+				height: 0;
+				margin-top: 0;
 			}
 
 			.more {
