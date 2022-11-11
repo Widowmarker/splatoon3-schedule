@@ -1,7 +1,7 @@
 <template>
 	<view class="bankaraSchedules splatoon">
 		<view class="time-bar"></view>
-		<view class="container">
+		<view class="container" v-if="!fest">
 			<view class="block" v-for="item in list" :key="item?.startTime"
 				:class="!item.bankaraMatchSettings && 'empty'">
 				<template v-if="item.bankaraMatchSettings">
@@ -22,6 +22,13 @@
 				</template>
 			</view>
 			<view class="more" v-if="!isMore && list.length" @click="isMore = true">查看更多</view>
+		</view>
+		<view class="fest-box splatoon2" v-else>
+			<view>祭奠比赛举行中！</view>
+			<view class="fest-title">{{currentFest.title}}</view>
+			<view class="title">三色夺宝攻击</view>
+			<image :src="currentFest.tricolorStage.image.url" mode=""></image>
+			<view>{{lang[currentFest.tricolorStage.id]}}</view>
 		</view>
 	</view>
 </template>
@@ -51,7 +58,9 @@
 	const store = mainStore()
 	const {
 		anarchyBattleSchedules,
-		lang
+		lang,
+		fest,
+		currentFest
 	} = storeToRefs(store)
 
 	const typeObj = {
@@ -157,5 +166,28 @@
 			}
 		}
 
+		.fest-box {
+			position: absolute;
+			top: 100rpx;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 90%;
+			padding: 0 20rpx;
+			border-radius: 20rpx;
+			background-color: #1a1b20;
+			color: #fff;
+			text-align: center;
+			box-sizing: border-box;
+
+			.fest-title {
+				border-bottom: 2rpx dashed #fff;
+			}
+
+			image {
+				width: 600rpx;
+				height: 300rpx;
+				object-fit: cover;
+			}
+		}
 	}
 </style>
