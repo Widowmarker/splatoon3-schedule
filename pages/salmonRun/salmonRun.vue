@@ -14,7 +14,9 @@
 				<view class="info">
 					<!-- 地图 -->
 					<view class="map-box">
-						<image :src="item.setting.coopStage.image.url" mode="" class="map"></image>
+						<image v-if="item.source" :src="item.setting.coopStage.image.url" mode="" class="map"></image>
+						<image v-else :src="mapUrl[item.setting.coopStage.id]" @error="errorHandle($event,item)" mode=""
+							class="map"></image>
 						<text class="splatoon2">{{lang[item.setting.coopStage.id]}}</text>
 					</view>
 					<!-- 武器 -->
@@ -46,6 +48,9 @@
 		handleTime
 	} from '../../utils/common'
 	import {
+		mapUrl
+	} from '../../utils/imgUrls'
+	import {
 		onPullDownRefresh,
 		onShareAppMessage
 	} from '@dcloudio/uni-app'
@@ -74,10 +79,16 @@
 				})
 			})
 
+			const errorHandle = (e, item) => {
+				if (e.type === 'error') item.source = true
+			}
+
 			return {
 				handleTime,
 				salmonRunSchedules,
-				lang
+				lang,
+				mapUrl,
+				errorHandle
 			}
 		}
 

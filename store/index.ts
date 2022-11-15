@@ -26,9 +26,19 @@ export const mainStore = defineStore('main', {
 					this.regularBattleSchedules = regularSchedules.nodes
 					this.anarchyBattleSchedules = bankaraSchedules.nodes
 					this.salmonRunSchedules = coopGroupingSchedule.regularSchedules.nodes
+					console.log(this.regularBattleSchedules);
+					const obj = {}
+					this.regularBattleSchedules.forEach(item => {
+						item.regularMatchSetting.vsStages.forEach(ite => {
+							if (!obj[ite.id]) {
+								obj[ite.id] = ite.image.url
+							}
+						})
+					})
+					console.log(obj,'obj');
 
 					// 祭奠
-					if (currentFest.startTime && currentFest.endTime) {
+					if (currentFest) {
 						const startTime = new Date(currentFest.startTime).getTime()
 						const endTime = new Date(currentFest.endTime).getTime()
 						const now = new Date().getTime()
