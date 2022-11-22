@@ -3,7 +3,7 @@
 		<!-- 精选品牌 -->
 		<view class="pickup-brand">
 			<view class="banner">
-				<image :src="gear.pickupBrand?.image.url" mode="aspectFill"></image>
+				<image :src="gear.pickupBrand.image.url" mode="aspectFill"></image>
 			</view>
 			<view class="today-pickup-container">
 				<view class="today-pickup-brand">
@@ -17,7 +17,7 @@
 				</view>
 				<view class="pickup-brand-box">
 					<image src="https://splatoon3.ink/assets/gesotown-daily-drop-bg.aad4f190.png" mode=""></image>
-					<text>{{lang[gear.pickupBrand?.brand.id]}}</text>
+					<text>{{lang[gear.pickupBrand.brand.id]}}</text>
 				</view>
 			</view>
 			<!-- 结束时间 -->
@@ -25,13 +25,13 @@
 				到<text>{{saleEndTime}}</text>为止
 			</view>
 			<view class="brand-gears">
-				<brand-gears-item :gearsList="gear.pickupBrand?.brandGears" :pickupBrand="true"></brand-gears-item>
+				<brand-gears-item :gearsList="gear.pickupBrand.brandGears" :pickupBrand="true"></brand-gears-item>
 			</view>
 			<view class="usualGearPower-box">
-				<text>容易附加于 {{lang[gear.pickupBrand?.brand.id]}} 的装备能力</text>
+				<text>容易附加于 {{lang[gear.pickupBrand.brand.id]}} 的装备能力</text>
 				<view class="info">
-					<image :src="gear.pickupBrand?.brand.usualGearPower.image.url" mode=""></image>
-					<text>{{lang[gear.pickupBrand?.brand.usualGearPower.__splatoon3ink_id]}}</text>
+					<image :src="gear.pickupBrand.brand.usualGearPower.image.url" mode=""></image>
+					<text>{{lang[gear.pickupBrand.brand.usualGearPower.__splatoon3ink_id]}}</text>
 				</view>
 			</view>
 		</view>
