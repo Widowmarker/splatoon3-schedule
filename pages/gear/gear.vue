@@ -1,5 +1,5 @@
 <template>
-	<view class="gear splatoon2" v-if="gear">
+	<view class="gear splatoon2" v-if="gear.pickupBrand">
 		<!-- 精选品牌 -->
 		<view class="pickup-brand">
 			<view class="banner">
@@ -59,11 +59,14 @@
 	import brandGearsItem from './brandGearsItem.vue'
 	import {
 		onPullDownRefresh,
-		onShareAppMessage
+		onShareAppMessage,
+		onShow
 	} from '@dcloudio/uni-app'
 
 	const store = mainStore()
-	store.getGear()
+	store.getGear().then(() => {
+		uni.hideLoading()
+	})
 	const {
 		gear,
 		lang
@@ -83,6 +86,15 @@
 		return {
 			title: 'Splatoon3日程',
 			path: '/pages/gear/gear'
+		}
+	})
+
+	onShow(() => {
+		if (!gear.value.pickupBrand) {
+			uni.showLoading({
+				title: '商城加载中...',
+				mask: true
+			})
 		}
 	})
 </script>
