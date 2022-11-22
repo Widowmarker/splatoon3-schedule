@@ -2,12 +2,12 @@
 	<!-- 场地组件 -->
 	<view class="coopStage">
 		<view class="stage-box image-left">
-			<image v-if="leftSource" :src="leftUrl" mode=""></image>
+			<image v-if="leftSource" :src="leftUrl" mode="aspectFill"></image>
 			<image v-else :src="mapUrl[leftName]" @error="leftError" mode=""></image>
 			<text class="splatoon2">{{lang[leftName]}}</text>
 		</view>
 		<view class="stage-box image-right">
-			<image v-if="rightSource" :src="rightUrl" mode=""></image>
+			<image v-if="rightSource" :src="rightUrl" mode="aspectFill"></image>
 			<image v-else :src="mapUrl[rightName]" @error="rightError" mode=""></image>
 			<text class="splatoon2">{{lang[rightName]}}</text>
 		</view>

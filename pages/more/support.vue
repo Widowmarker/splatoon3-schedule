@@ -24,6 +24,7 @@
 			}]
 		}).then(res => {
 			QRCodeImg.value = res.fileList[0].tempFileURL
+			console.log(QRCodeImg.value,'qr');
 		})
 	}
 	getImg()

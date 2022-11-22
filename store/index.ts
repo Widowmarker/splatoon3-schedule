@@ -1,4 +1,7 @@
+import { rejects } from 'assert'
+import { resolve } from 'dns'
 import { defineStore } from 'pinia'
+import GearData from './types.ts'
 export const mainStore = defineStore('main', {
 	state: () => {
 		return {
@@ -7,7 +10,8 @@ export const mainStore = defineStore('main', {
 			salmonRunSchedules: [], // 打工日程
 			lang: {}, // 语音
 			fest: false, // 祭奠
-			currentFest: {} as any
+			currentFest: {} as any, // 当前祭奠信息
+			gear: {} as GearData // 商城
 		}
 	},
 	getters: {},
@@ -26,7 +30,6 @@ export const mainStore = defineStore('main', {
 					this.regularBattleSchedules = regularSchedules.nodes
 					this.anarchyBattleSchedules = bankaraSchedules.nodes
 					this.salmonRunSchedules = coopGroupingSchedule.regularSchedules.nodes
-					console.log(this.regularBattleSchedules);
 					const obj = {}
 					this.regularBattleSchedules.forEach(item => {
 						item.regularMatchSetting.vsStages.forEach(ite => {
@@ -35,7 +38,6 @@ export const mainStore = defineStore('main', {
 							}
 						})
 					})
-					console.log(obj,'obj');
 
 					// 祭奠
 					if (currentFest) {
@@ -76,11 +78,28 @@ export const mainStore = defineStore('main', {
 						language
 					}
 				}).then((res: any) => {
-					const { stages, rules } = JSON.parse(res.result)
-					const all = { ...stages, ...rules }
+					const { stages, rules, gear, brands, powers } = JSON.parse(res.result)
+					const all = { ...stages, ...rules, ...gear, ...brands, ...powers }
 					for (let key in all) {
 						this.lang[key] = all[key].name
 					}
+					resolve(true)
+				}).catch(() => {
+					reject(false)
+				})
+			})
+		},
+		// 获取商城
+		getGear() {
+			return new Promise((resolve, reject) => {
+				wx.cloud.init()
+				wx.cloud.callFunction({
+					name: 'myCloudFn',
+					data: {
+						type: 'gear'
+					}
+				}).then((res: any) => {
+					this.gear = JSON.parse(res.result).data.gesotown
 					resolve(true)
 				}).catch(() => {
 					reject(false)

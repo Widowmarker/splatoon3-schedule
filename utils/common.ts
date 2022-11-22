@@ -18,4 +18,18 @@ const handleHours = (time: string) => {
 	return hours
 }
 
-export { handleTime, handleHours }
+// 商品剩余时间
+const surplusTime = (time: string) => {
+	const now = new Date().getTime()
+	const sourceTime = new Date(time).getTime()
+
+	const surplus = (sourceTime - now) / 1000 / (60 * 60)
+
+	if (surplus < 1) {
+		return Math.floor((sourceTime - now) / 1000 / 60)
+	}
+
+	return Math.floor(surplus)
+}
+
+export { handleTime, handleHours, surplusTime }

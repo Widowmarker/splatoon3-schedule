@@ -14,7 +14,7 @@
 				<view class="info">
 					<!-- 地图 -->
 					<view class="map-box">
-						<image v-if="item.source" :src="item.setting.coopStage.image.url" mode="" class="map"></image>
+						<image v-if="item.source" :src="item.setting.coopStage.image.url" mode="aspectFill" class="map"></image>
 						<image v-else :src="mapUrl[item.setting.coopStage.id]" @error="errorHandle($event,item)" mode=""
 							class="map"></image>
 						<text class="splatoon2">{{lang[item.setting.coopStage.id]}}</text>

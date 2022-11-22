@@ -26,36 +26,41 @@
 				"backgroundTextStyle": "light",
 				"backgroundColor": "#191919"
 			}
-		}
-	    ,{
-            "path" : "pages/more/more",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "更多",
-                "enablePullDownRefresh": false,
+		},
+		{
+			"path": "pages/gear/gear",
+			"style": {
+				"navigationBarTitleText": "商城",
+				"enablePullDownRefresh": true,
 				"backgroundColor": "#191919"
-            }
-            
-        },
+			}
+
+		},
+		{
+			"path": "pages/more/more",
+			"style": {
+				"navigationBarTitleText": "更多",
+				"enablePullDownRefresh": false,
+				"backgroundColor": "#191919"
+			}
+		},
 		{
 			"path": "pages/more/about",
-			"style" :
-			{
-			    "navigationBarTitleText": "关于",
-			    "enablePullDownRefresh": false,
+			"style": {
+				"navigationBarTitleText": "关于",
+				"enablePullDownRefresh": false,
 				"backgroundColor": "#191919"
 			}
 		},
 		{
 			"path": "pages/more/support",
-			"style" :
-			{
-			    "navigationBarTitleText": "支持作者",
-			    "enablePullDownRefresh": false,
+			"style": {
+				"navigationBarTitleText": "支持作者",
+				"enablePullDownRefresh": false,
 				"backgroundColor": "#191919"
 			}
 		}
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "uni-app",
@@ -88,6 +93,11 @@
 				"selectedIconPath": "static/salmon-run-selected.png"
 			},
 			{
+				"pagePath": "pages/gear/gear",
+				"text": "商城",
+				"iconPath": "static/gear.png",
+				"selectedIconPath": "static/gear-selected.png"
+			} {
 				"pagePath": "pages/more/more",
 				"text": "更多",
 				"iconPath": "static/more.png",
