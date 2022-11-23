@@ -3,12 +3,12 @@
 	<view class="coopStage">
 		<view class="stage-box image-left">
 			<image v-if="leftSource" :src="leftUrl" mode="aspectFill"></image>
-			<image v-else :src="mapUrl[leftName]" @error="leftError" mode=""></image>
+			<image v-else :src="mapImgList[leftName]" @error="leftError" mode=""></image>
 			<text class="splatoon2">{{lang[leftName]}}</text>
 		</view>
 		<view class="stage-box image-right">
 			<image v-if="rightSource" :src="rightUrl" mode="aspectFill"></image>
-			<image v-else :src="mapUrl[rightName]" @error="rightError" mode=""></image>
+			<image v-else :src="mapImgList[rightName]" @error="rightError" mode=""></image>
 			<text class="splatoon2">{{lang[rightName]}}</text>
 		</view>
 	</view>
@@ -25,9 +25,6 @@
 	import {
 		mainStore
 	} from "../store";
-	import {
-		mapUrl
-	} from '../utils/imgUrls'
 	const props = defineProps({
 		// 图片地址
 		leftUrl: {
@@ -46,7 +43,8 @@
 	})
 	const store = mainStore()
 	const {
-		lang
+		lang,
+		mapImgList
 	} = storeToRefs(store)
 
 	// 是否使用原地址

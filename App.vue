@@ -33,6 +33,7 @@
 					store.getLanguage(res.data ?? 'zh-CN')
 				}
 			})
+			store.getMapImgList()
 		},
 		onShow: function() {
 			console.log('App Show')

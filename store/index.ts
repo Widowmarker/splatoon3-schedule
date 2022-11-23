@@ -1,6 +1,5 @@
-import { rejects } from 'assert'
-import { resolve } from 'dns'
 import { defineStore } from 'pinia'
+import { mapCloudList,mapIdList } from './imgInfo'
 import GearData from './types.ts'
 export const mainStore = defineStore('main', {
 	state: () => {
@@ -11,7 +10,8 @@ export const mainStore = defineStore('main', {
 			lang: {}, // 语音
 			fest: false, // 祭奠
 			currentFest: {} as any, // 当前祭奠信息
-			gear: {} as GearData // 商城
+			gear: {} as GearData, // 商城
+			mapImgList: {}, // 地图地址
 		}
 	},
 	getters: {},
@@ -103,6 +103,17 @@ export const mainStore = defineStore('main', {
 					resolve(true)
 				}).catch(() => {
 					reject(false)
+				})
+			})
+		},
+		// 获取地图列表
+		getMapImgList() {
+			wx.cloud.init()
+			wx.cloud.getTempFileURL({
+				fileList: mapCloudList
+			}).then(res => {
+				mapIdList.forEach((id, index) => {
+					this.mapImgList[id] = res.fileList[index].tempFileURL
 				})
 			})
 		}

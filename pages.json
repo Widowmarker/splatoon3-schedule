@@ -97,7 +97,8 @@
 				"text": "商城",
 				"iconPath": "static/gear.png",
 				"selectedIconPath": "static/gear-selected.png"
-			} {
+			},
+			{
 				"pagePath": "pages/more/more",
 				"text": "更多",
 				"iconPath": "static/more.png",

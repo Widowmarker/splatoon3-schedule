@@ -19,12 +19,13 @@
 	const getImg = () => {
 		wx.cloud.init()
 		wx.cloud.getTempFileURL({
-			fileList: [{
-				fileID: 'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/IMG_8965.jpg'
-			}]
+			fileList: [
+				'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/IMG_8965.jpg'
+			]
 		}).then(res => {
+			console.log(res);
 			QRCodeImg.value = res.fileList[0].tempFileURL
-			console.log(QRCodeImg.value,'qr');
+			console.log(QRCodeImg.value, 'qr');
 		})
 	}
 	getImg()
@@ -32,8 +33,8 @@
 	const previewImage = () => {
 		uni.previewImage({
 			urls: [QRCodeImg.value],
-			longPressActions:{
-				
+			longPressActions: {
+
 			}
 		})
 	}
