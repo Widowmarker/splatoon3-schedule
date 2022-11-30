@@ -1,25 +1,27 @@
 const mapCloudList = [
-	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/map/SockeyeStation.png',
-	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/map/GoneFissionHydroplant.png',
-	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/map/SpawningGrounds.png',
-	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/map/ScorchGorge.png',
-	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/map/HammerheadBridge.png',
-	"cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/map/MuseumdAlfonsino.png",
-	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/map/Mahi-MahiResort.png',
-	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/map/InkblotArtAcademy.png',
-	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/map/SturgeonShipyard.png',
-	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/map/MakoMart.png',
-	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/map/WahooWorld.png',
-	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/map/EeltailAlley.png',
-	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/map/HagglefishMarket.png',
-	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/map/UndertowSpillway.png',
-	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/map/MincemeatMetalworks.png',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/SockeyeStation.jpg',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/GoneFissionHydroplant.jpg',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/SpawningGrounds.jpg',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/MaroonersBay.jpg',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/ScorchGorge.jpg',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/HammerheadBridge.jpg',
+	"cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/MuseumdAlfonsino.jpg",
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/Mahi-MahiResort.jpg',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/InkblotArtAcademy.jpg',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/SturgeonShipyard.jpg',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/MakoMart.jpg',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/WahooWorld.jpg',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/EeltailAlley.jpg',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/HagglefishMarket.jpg',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/UndertowSpillway.jpg',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/MincemeatMetalworks.jpg',
 ]
 
 const mapIdList = [
 	'Q29vcFN0YWdlLTI=', // 新卷堡
 	'Q29vcFN0YWdlLTc=', // 发电站
 	'Q29vcFN0YWdlLTE=', // 大坝
+	'Q29vcFN0YWdlLTY=', // 破船
 	'VnNTdGFnZS0x', // 温泉花大峡谷
 	'VnNTdGFnZS0xMA==', // 真鲭跨海大桥
 	'VnNTdGFnZS0xMQ==', // 金眼鲷美术馆
