@@ -1,35 +1,20 @@
 <template>
 	<view class="salmonRun splatoon">
-		<view class="time-bar">
+		<!-- 大型跑 -->
+		<view class="bigRun container" v-if="bigRunSchedules">
+			<image :src="bannerImage" mode=""></image>
+			<view class="text">大型跑！</view>
+			<ScheduleInfo :scheduleInfo="bigRunSchedules"></ScheduleInfo>
+		</view>
+
+		<!-- 正常打工日程 -->
+		<view class="time-bar" :style="{height: bigRunSchedules ? '65%' : '100%'}">
 			<view class="state open">Open!</view>
 			<view class="state next">Next!</view>
 		</view>
 		<view class="container">
-			<view class="block" v-for="item in salmonRunSchedules" :key="item?.startTime">
-				<!-- 时间 -->
-				<view class="time-range">
-					<image src="../../static/salmon-run-selected.png" mode=""></image>
-					<text class="splatoon2">{{handleTime(item?.startTime)}} - {{handleTime(item?.endTime)}}</text>
-				</view>
-				<view class="info">
-					<!-- 地图 -->
-					<view class="map-box">
-						<image v-if="item.source" :src="item.setting.coopStage.image.url" mode="aspectFill" class="map">
-						</image>
-						<image v-else :src="mapImgList[item.setting.coopStage.id]" @error="errorHandle($event,item)"
-							mode="" class="map"></image>
-						<text class="splatoon2">{{lang[item.setting.coopStage.id]}}</text>
-					</view>
-					<!-- 武器 -->
-					<view class="weapons-box">
-						<text>提供武器</text>
-						<view class="weapons">
-							<image :src="weapon.image.url" mode="" v-for="weapon in item.setting.weapons"
-								:key="item.__splatoon3ink_id"></image>
-						</view>
-					</view>
-				</view>
-			</view>
+			<ScheduleInfo v-for="(item,index) in salmonRunSchedules" :key="item?.startTime" :scheduleInfo="item"
+				:index="index"></ScheduleInfo>
 		</view>
 	</view>
 </template>
@@ -52,8 +37,12 @@
 		onPullDownRefresh,
 		onShareAppMessage
 	} from '@dcloudio/uni-app'
+	import ScheduleInfo from './scheduleInfo.vue'
 
 	export default defineComponent({
+		components: {
+			ScheduleInfo
+		},
 		setup() {
 			onShareAppMessage(() => {
 				return {
@@ -67,7 +56,9 @@
 			const {
 				salmonRunSchedules,
 				lang,
-				mapImgList
+				mapImgList,
+				bigRunSchedules,
+				bannerImage
 			} = storeToRefs(store)
 
 
@@ -87,18 +78,47 @@
 				salmonRunSchedules,
 				lang,
 				errorHandle,
-				mapImgList
+				mapImgList,
+				bigRunSchedules,
+				bannerImage
 			}
 		}
 
 	})
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	.salmonRun {
 		position: relative;
 		padding-bottom: 60rpx;
 		min-height: 100vh;
+
+		.bigRun {
+
+			.text {
+				text-align: center;
+				font-size: 36rpx;
+				color: #edfe64;
+				line-height: 40rpx;
+			}
+
+			image {
+				width: 100%;
+				height: 400rpx;
+			}
+
+			&.container {
+				padding: 0;
+				padding-bottom: 30rpx;
+				background-image: linear-gradient(45deg, #4b4b4b 25%, #575757 0, #575757 50%, #4b4b4b 0, #4b4b4b 75%, #575757 0);
+				background-size: 100rpx 100rpx;
+
+				.block {
+					padding: 0 30rpx;
+					box-sizing: border-box;
+				}
+			}
+		}
 
 		.time-bar {
 			position: absolute;
@@ -143,10 +163,10 @@
 				width: 100%;
 				padding-top: 50rpx;
 
-				&:first-child {
-					padding-top: 120rpx;
-					padding-bottom: 65rpx;
-				}
+				// &:first-child {
+				// 	padding-top: 120rpx;
+				// 	padding-bottom: 65rpx;
+				// }
 
 				.time-range {
 					image {

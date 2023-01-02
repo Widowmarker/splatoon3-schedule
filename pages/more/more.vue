@@ -10,7 +10,7 @@
 			</picker>
 		</view>
 		<view class="row" @click="toAbout">关于</view>
-		<view class="row" @click="toSupport">支持作者</view>
+		<!-- <view class="row" @click="toSupport">支持作者</view> -->
 	</view>
 </template>
 

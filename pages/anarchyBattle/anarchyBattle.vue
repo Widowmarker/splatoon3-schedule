@@ -30,6 +30,9 @@
 			<image :src="currentFest.tricolorStage.image.url" mode=""></image>
 			<view>{{lang[currentFest.tricolorStage.id]}}</view>
 		</view>
+		<view class="xBtn" @click="toXBattle">
+			<image src="../../static/x.svg" mode=""></image>X比赛
+		</view>
 	</view>
 </template>
 
@@ -72,6 +75,13 @@
 	const list = computed(() => {
 		return isMore.value ? anarchyBattleSchedules.value : anarchyBattleSchedules.value.slice(0, 2)
 	})
+
+	// 跳转到X比赛
+	const toXBattle = () => {
+		uni.navigateTo({
+			url: './xBattle'
+		})
+	}
 
 	// 下拉刷新
 	onPullDownRefresh(() => {
@@ -187,6 +197,24 @@
 				width: 600rpx;
 				height: 300rpx;
 				object-fit: cover;
+			}
+		}
+
+		.xBtn {
+			position: fixed;
+			top: 20rpx;
+			right: 0rpx;
+			width: 150rpx;
+			border-radius: 30rpx 0 0 30rpx;
+			background-color: #1a1b20;
+			color: #fff;
+			text-align: center;
+
+			image {
+				width: 50rpx;
+				height: 50rpx;
+				vertical-align: -12rpx;
+				margin-right: 5rpx;
 			}
 		}
 	}

@@ -15,6 +15,8 @@ const mapCloudList = [
 	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/HagglefishMarket.jpg',
 	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/UndertowSpillway.jpg',
 	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/MincemeatMetalworks.jpg',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/BrinewaterSprings.jpg',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/zpijpg50/FlounderHeights.jpg'
 ]
 
 const mapIdList = [
@@ -34,6 +36,8 @@ const mapIdList = [
 	'VnNTdGFnZS0z', // 烟管鱼市场
 	'VnNTdGFnZS00', // 竹蛏疏洪道
 	'VnNTdGFnZS02', // 鱼肉碎金属
+	'VnNTdGFnZS05', // 比目鱼住宅区
+	'VnNTdGFnZS03' // 臭鱼干温泉
 ]
 
 export { mapCloudList, mapIdList }

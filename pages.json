@@ -59,6 +59,15 @@
 				"enablePullDownRefresh": false,
 				"backgroundColor": "#191919"
 			}
+		},
+		{
+			"path": "pages/anarchyBattle/xBattle",
+			"style": {
+				"navigationBarTitleText": "X比赛",
+				"enablePullDownRefresh": true,
+				"backgroundTextStyle": "light",
+				"backgroundColor": "#191919"
+			}
 		}
 	],
 	"globalStyle": {
