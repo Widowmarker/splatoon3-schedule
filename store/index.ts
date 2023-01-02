@@ -33,7 +33,6 @@ export const mainStore = defineStore('main', {
 					this.regularBattleSchedules = regularSchedules.nodes
 					this.anarchyBattleSchedules = bankaraSchedules.nodes
 					this.xBattleSchedules = xSchedules.nodes
-					console.log(this.xBattleSchedules);
 					this.salmonRunSchedules = coopGroupingSchedule.regularSchedules.nodes
 					const obj = {}
 					this.regularBattleSchedules.forEach(item => {

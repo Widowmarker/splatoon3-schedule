@@ -5,7 +5,7 @@
 		</view>
 		<view class="language row">
 			<text class="">语言选择</text>
-			<picker mode="selector" :range="range" @change="change" range-key="value" value="">
+			<picker mode="selector" :range="range" @change="change" range-key="value" :value="index">
 				<view>{{range[index].value}}</view>
 			</picker>
 		</view>
@@ -81,8 +81,10 @@
 			key: 'ru-RU'
 		}
 	]
+
 	// 选择语言
 	const change = (e: any) => {
+		console.log(e);
 		index.value = e.detail.value
 		const str = range[index.value].key
 		uni.showLoading({
