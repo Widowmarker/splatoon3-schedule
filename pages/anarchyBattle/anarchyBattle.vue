@@ -30,7 +30,7 @@
 			<image :src="currentFest.tricolorStage.image.url" mode=""></image>
 			<view>{{lang[currentFest.tricolorStage.id]}}</view>
 		</view>
-		<view class="xBtn" @click="toXBattle">
+		<view v-if="!fest" class="xBtn" @click="toXBattle">
 			<image src="../../static/x.svg" mode=""></image>X比赛
 		</view>
 	</view>

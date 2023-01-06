@@ -2,7 +2,7 @@
 	<view class="xBattle splatoon">
 		<view class="time-bar"></view>
 		<view class="container">
-			<view class="block" v-for="item in xBattleSchedules" :key="item?.startTime">
+			<view class="block" v-for="item in xBattleSchedules" :key="item?.startTime" :class="!item.xMatchSetting && 'empty'">
 				<template v-if="item.xMatchSetting">
 					<view class="time state">{{handleTime(item.startTime)}}</view>
 					<view class="model">

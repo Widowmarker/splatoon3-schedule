@@ -34,14 +34,15 @@ export const mainStore = defineStore('main', {
 					this.anarchyBattleSchedules = bankaraSchedules.nodes
 					this.xBattleSchedules = xSchedules.nodes
 					this.salmonRunSchedules = coopGroupingSchedule.regularSchedules.nodes
-					const obj = {}
-					this.regularBattleSchedules.forEach(item => {
-						item.regularMatchSetting.vsStages.forEach(ite => {
-							if (!obj[ite.id]) {
-								obj[ite.id] = ite.image.url
-							}
-						})
-					})
+					// 用来查看图片id
+					// const obj = {}
+					// this.regularBattleSchedules.forEach(item => {
+					// 	item.regularMatchSetting.vsStages.forEach(ite => {
+					// 		if (!obj[ite.id]) {
+					// 			obj[ite.id] = ite.image.url
+					// 		}
+					// 	})
+					// })
 
 					// 祭奠
 					if (currentFest) {
@@ -74,7 +75,8 @@ export const mainStore = defineStore('main', {
 					}
 
 					resolve(true)
-				}).catch(() => {
+				}).catch((err) => {
+					console.log(err);
 					reject(false)
 				})
 			})
