@@ -20,8 +20,11 @@
 			<view class="weapons-box">
 				<text>提供武器</text>
 				<view class="weapons">
-					<image :src="weapon.image.url" mode="" v-for="weapon in scheduleInfo.setting.weapons"
-						:key="scheduleInfo.__splatoon3ink_id"></image>
+					<view class="" v-for="weapon in scheduleInfo.setting.weapons" :key="scheduleInfo.__splatoon3ink_id">
+						<image v-if="weapon.source" :src="weapon.image.url" mode=""></image>
+						<image v-else :src="weaponImgList[weapon.__splatoon3ink_id]" mode=""
+							@error="errorHandle($event,weapon)"></image>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -48,16 +51,19 @@
 		},
 		index: {
 			type: Number,
-			default:1
+			default: 1
 		}
 	})
 	const store = mainStore()
 	const {
 		lang,
 		mapImgList,
+		weaponImgList
 	} = storeToRefs(store)
 
+	// 发生错误时用原图地址
 	const errorHandle = (e: any, item: any) => {
+		console.log(e);
 		if (e.type === 'error') item.source = true
 	}
 </script>
@@ -126,6 +132,10 @@
 					margin: 0 15rpx;
 					border-radius: 50rpx;
 					background-color: #000000;
+
+					&>view {
+						height: 60rpx;
+					}
 
 					image {
 						width: 60rpx;

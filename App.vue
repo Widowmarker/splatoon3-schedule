@@ -34,6 +34,7 @@
 				}
 			})
 			store.getMapImgList()
+			store.getWeaponImgList()
 		},
 		onShow: function() {
 			console.log('App Show')

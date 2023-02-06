@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { mapCloudList, mapIdList } from './imgInfo'
+import { mapCloudList, mapIdList, weaponCloudList0, weaponIdList0, weaponCloudList1, weaponIdList1 } from './imgInfo'
 import GearData from './types.ts'
 export const mainStore = defineStore('main', {
 	state: () => {
@@ -13,6 +13,7 @@ export const mainStore = defineStore('main', {
 			currentFest: {} as any, // 当前祭奠信息
 			gear: {} as GearData, // 商城
 			mapImgList: {}, // 地图地址
+			weaponImgList: {}, // 武器地址
 			bannerImage: '', // 大型跑横幅
 			bigRunSchedules: null // 大型跑
 		}
@@ -91,12 +92,25 @@ export const mainStore = defineStore('main', {
 						language
 					}
 				}).then((res: any) => {
-					const { stages, rules, gear, brands, powers } = JSON.parse(res.result)
+					const { stages, rules, gear, brands, powers, weapons } = JSON.parse(res.result)
 					const all = { ...stages, ...rules, ...gear, ...brands, ...powers }
 					for (let key in all) {
 						this.lang[key] = all[key].name
 					}
 					resolve(true)
+
+					// 用来查看图片id
+					// let weaponArr = {}
+					// for (let k in weapons) {
+					// 	if (weaponArr[weapons[k].name]) {
+					// 		weaponArr[weapons[k].name].id.push(k)
+					// 	} else {
+					// 		weaponArr[weapons[k].name] = {
+					// 			id: [k]
+					// 		}
+					// 	}
+					// }
+					// console.log(weaponArr, 'weaponArr');
 				}).catch(() => {
 					reject(false)
 				})
@@ -127,6 +141,28 @@ export const mainStore = defineStore('main', {
 			}).then(res => {
 				mapIdList.forEach((id, index) => {
 					this.mapImgList[id] = res.fileList[index].tempFileURL
+				})
+			})
+		},
+		// 获取武器列表（数组有长度限制，所以分开两次请求）
+		getWeaponImgList() {
+			wx.cloud.getTempFileURL({
+				fileList: weaponCloudList0
+			}).then(res => {
+				weaponIdList0.forEach((idArr, index) => {
+					idArr.forEach(id => {
+						this.weaponImgList[id] = res.fileList[index].tempFileURL
+					})
+				})
+			})
+
+			wx.cloud.getTempFileURL({
+				fileList: weaponCloudList1
+			}).then(res => {
+				weaponIdList1.forEach((idArr, index) => {
+					idArr.forEach(id => {
+						this.weaponImgList[id] = res.fileList[index].tempFileURL
+					})
 				})
 			})
 		}
