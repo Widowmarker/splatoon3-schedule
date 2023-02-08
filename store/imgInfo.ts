@@ -105,7 +105,7 @@ const weaponCloudList1 = [
 const weaponIdList0 = [
 	['d9bbd083353c118d'], // .52加仑
 	['ab50e9ae40810698'], // .96加仑
-	['48d6e062dd8b7efb'], // 专业模型枪MG 银喷
+	['48d6e062dd8b7efb', 'd3d579406dbc0fc8'], // 专业模型枪MG 银喷
 	['9e45d86ccd5fea1e', 'cb9126ea2928b619'], // 圆珠笔
 	['8c0617eafedab081'], // 14式竹筒枪·甲
 	['7f8967b3ae112ffc'], // 宽滚筒
