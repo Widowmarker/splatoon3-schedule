@@ -100,6 +100,7 @@ const weaponCloudList1 = [
 	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/weapon/Tri-Slosher.png',
 	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/weapon/Tri-Stringer.png',
 	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/weapon/UndercoverBrella.png',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/weapon/GoldRandom.png'
 ]
 
 const weaponIdList0 = [
@@ -135,7 +136,7 @@ const weaponIdList0 = [
 	["39e383c2f6d1ca3e", "af505e7c4bdb7888"], // 鹦鹉螺号47
 	["e594a5f9535eaf40"], // 北斋
 	["70e60082b7f73c24"], // LACT-450
-	["1f6ce9f852641707"], // 随机
+	["1f6ce9f852641707"], // 随机 问号
 	["afc40370eb8a1aa5"], // 远距爆破枪 长热泡
 	["627d43fa3ab06066", "2d3900d357e005e9"], // 快速爆破枪 红泡
 	["f668bd94e7ebf62d", "83275e416e7c1bc2"], // 快速爆破枪 精英 长热泡
@@ -162,6 +163,45 @@ const weaponIdList1 = [
 	["7813d8c4d9103b07", "7d97fc215efe47fa"], // 洗笔桶
 	["ba2b27f7c17b1632", "7ed9dd50b97d24f3"], // 三发猎鱼弓
 	["53cefbb18bb74cb3"], // 特工配件
+	['edcfecb7e8acd1a7'], // 金随机 金问号
 ]
 
-export { mapCloudList, mapIdList, weaponCloudList0, weaponIdList0, weaponCloudList1, weaponIdList1 }
+const festCloud = [
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/fest/chocolate.png',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/fest/DarkChocolate.png',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/fest/MilkChocolate.png',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/fest/WhiteChocolate.png',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/fest/tasteSensation.png',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/fest/Spicy.png',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/fest/Sweet.png',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/fest/Sour.png',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/fest/PokémonType.png',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/fest/Grass.png',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/fest/Fire.png',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/fest/Water.png',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/fest/desertedIsland.png',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/fest/Gear.png',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/fest/Grub.png',
+	'cloud://splatoon3-schedule-5dtcrb884d9ac.7370-splatoon3-schedule-5dtcrb884d9ac-1314894234/fest/Fun.png'
+]
+
+const festIdList = [
+	"RmVzdC1FVTpKVUVBLTAwMDA0", // 巧克力就要选这种！
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNDpBbHBoYQ==", // 苦甜巧克力
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNDpCcmF2bw==", // 牛奶巧克力
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNDpDaGFybGll", // 白巧克力
+	"RmVzdC1FVTpKVUVBLTAwMDAz", // 喜欢的口味是什么呢？
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwMzpBbHBoYQ==", // 辣
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwMzpCcmF2bw==", // 甜
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwMzpDaGFybGll", // 酸
+	"RmVzdC1FVTpKVUVBLTAwMDAy", // 要选哪种属性的搭档呢？
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwMjpBbHBoYQ==", // 草
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwMjpCcmF2bw==", // 火
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwMjpDaGFybGll", // 水
+	"RmVzdC1FVTpKVUVBLTAwMDAx", // 你会带什么去无人岛？
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwMTpBbHBoYQ==", // 工具
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwMTpCcmF2bw==", // 食物
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwMTpDaGFybGll", // 打发时间的东西
+]
+
+export { mapCloudList, mapIdList, weaponCloudList0, weaponIdList0, weaponCloudList1, weaponIdList1, festCloud, festIdList }

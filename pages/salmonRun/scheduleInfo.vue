@@ -63,7 +63,6 @@
 
 	// 发生错误时用原图地址
 	const errorHandle = (e: any, item: any) => {
-		console.log(e);
 		if (e.type === 'error') item.source = true
 	}
 </script>

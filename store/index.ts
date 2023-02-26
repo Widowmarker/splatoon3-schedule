@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { mapCloudList, mapIdList, weaponCloudList0, weaponIdList0, weaponCloudList1, weaponIdList1 } from './imgInfo'
+import { mapCloudList, mapIdList, weaponCloudList0, weaponIdList0, weaponCloudList1, weaponIdList1, festCloud, festIdList } from './imgInfo'
 import GearData from './types.ts'
 export const mainStore = defineStore('main', {
 	state: () => {
@@ -8,12 +8,14 @@ export const mainStore = defineStore('main', {
 			anarchyBattleSchedules: [] as any, // 真格日程
 			xBattleSchedules: [] as any, // 真格日程
 			salmonRunSchedules: [], // 打工日程
-			lang: {}, // 语音
+			lang: {}, // 语言
 			fest: false, // 祭奠
+			festList: null, // 祭奠列表
 			currentFest: {} as any, // 当前祭奠信息
 			gear: {} as GearData, // 商城
 			mapImgList: {}, // 地图地址
 			weaponImgList: {}, // 武器地址
+			festImgList: {}, // 祭奠图片地址
 			bannerImage: '', // 大型跑横幅
 			bigRunSchedules: null // 大型跑
 		}
@@ -92,10 +94,10 @@ export const mainStore = defineStore('main', {
 						language
 					}
 				}).then((res: any) => {
-					const { stages, rules, gear, brands, powers, weapons } = JSON.parse(res.result)
-					const all = { ...stages, ...rules, ...gear, ...brands, ...powers }
+					const { stages, rules, gear, brands, powers, festivals /*weapons,*/ } = JSON.parse(res.result)
+					const all = { ...stages, ...rules, ...gear, ...brands, ...powers, ...festivals }
 					for (let key in all) {
-						this.lang[key] = all[key].name
+						this.lang[key] = all[key].name ?? all[key]
 					}
 					resolve(true)
 
@@ -163,6 +165,55 @@ export const mainStore = defineStore('main', {
 					idArr.forEach(id => {
 						this.weaponImgList[id] = res.fileList[index].tempFileURL
 					})
+				})
+			})
+		},
+		// 获取祭奠图片
+		getFestImgList() {
+			wx.cloud.getTempFileURL({
+				fileList: festCloud
+			}).then(res => {
+				this.festImgList
+				festIdList.forEach((id, index) => {
+					this.festImgList[id] = res.fileList[index].tempFileURL
+				})
+			})
+		},
+		// 获取祭奠信息
+		getFest() {
+			return new Promise((resolve, reject) => {
+				wx.cloud.callFunction({
+					name: 'myCloudFn',
+					data: {
+						type: 'festivals'
+					}
+				}).then((res: any) => {
+					const { EU: { data: { festRecords: { nodes } } } } = JSON.parse(res.result)
+					this.festList = nodes
+
+					type Item = {
+						title: string,
+						__splatoon3ink_id: string,
+						teams: Team[]
+					}
+
+					interface Team {
+						teamName: string
+						[key: string]: any
+					}
+
+					this.festList.forEach((item: Item) => {
+						const CN = this.lang[item.__splatoon3ink_id]
+						item.title = CN.title
+						item.teams.forEach((team, i: number) => {
+							team.teamName = CN.teams[i].teamName
+							team.background = `rgba(${team.color.r * 255}, ${team.color.g * 255}, ${team.color.b * 255}, ${team.color.a})`
+						})
+					})
+
+					resolve(true)
+				}).catch(() => {
+					reject(false)
 				})
 			})
 		}

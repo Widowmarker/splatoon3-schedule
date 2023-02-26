@@ -35,6 +35,7 @@
 			})
 			store.getMapImgList()
 			store.getWeaponImgList()
+			store.getFestImgList()
 		},
 		onShow: function() {
 			console.log('App Show')

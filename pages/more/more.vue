@@ -9,6 +9,7 @@
 				<view>{{range[index].value}}</view>
 			</picker>
 		</view>
+		<view class="row" @click="toFest">祭奠</view>
 		<view class="row" @click="toAbout">关于</view>
 		<!-- <view class="row" @click="toSupport">支持作者</view> -->
 	</view>
@@ -84,7 +85,6 @@
 
 	// 选择语言
 	const change = (e: any) => {
-		console.log(e);
 		index.value = e.detail.value
 		const str = range[index.value].key
 		uni.showLoading({
@@ -104,6 +104,13 @@
 				title: '语言切换失败',
 				icon: "error"
 			})
+		})
+	}
+	
+	// 跳转到祭奠页
+	const toFest = () => {
+		uni.navigateTo({
+			url:'./fest'
 		})
 	}
 
