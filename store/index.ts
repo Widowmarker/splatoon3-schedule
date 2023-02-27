@@ -100,6 +100,7 @@ export const mainStore = defineStore('main', {
 						this.lang[key] = all[key].name ?? all[key]
 					}
 					resolve(true)
+					console.log(this.lang);
 
 					// 用来查看图片id
 					// let weaponArr = {}
@@ -190,27 +191,6 @@ export const mainStore = defineStore('main', {
 				}).then((res: any) => {
 					const { EU: { data: { festRecords: { nodes } } } } = JSON.parse(res.result)
 					this.festList = nodes
-
-					type Item = {
-						title: string,
-						__splatoon3ink_id: string,
-						teams: Team[]
-					}
-
-					interface Team {
-						teamName: string
-						[key: string]: any
-					}
-
-					this.festList.forEach((item: Item) => {
-						const CN = this.lang[item.__splatoon3ink_id]
-						item.title = CN.title
-						item.teams.forEach((team, i: number) => {
-							team.teamName = CN.teams[i].teamName
-							team.background = `rgba(${team.color.r * 255}, ${team.color.g * 255}, ${team.color.b * 255}, ${team.color.a})`
-						})
-					})
-
 					resolve(true)
 				}).catch(() => {
 					reject(false)

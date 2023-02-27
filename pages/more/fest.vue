@@ -2,7 +2,7 @@
 	<view class="fest splatoon2">
 		<view class="block" v-for="item in festList" :key="item.__splatoon3ink_id">
 			<!-- 标题 -->
-			<view class="title">{{item.title}}</view>
+			<view class="title">{{lang[item.__splatoon3ink_id].title}}</view>
 			<!-- 胜利队伍 -->
 			<view class="win-team">
 				<view v-for="team in item.teams" :key="team.id">{{team.result.isWinner ? 'WIN!' : ''}}</view>
@@ -12,12 +12,13 @@
 			<image v-else :src="festImgList[item.id]" mode="" @error="errorHandle($event,item)"></image>
 			<!-- 队伍名称 -->
 			<view class="teamNames">
-				<view class="teamName-outbox" :style="{background:team.background}" v-for="team in item.teams"
-					:key='team.id'>
-					<view class="teamName">
-						<view class="arrow-left"></view>
-						<view class="arrow-right"></view>
-						<view class="text-box">{{team.teamName}}</view>
+				<view class="flex-1" v-for="(team,i) in item.teams" :key='team.id'>
+					<view class="teamName-outbox" :style="{background: `rgba(${team.color.r * 255}, ${team.color.g * 255}, ${team.color.b * 255}, ${team.color.a})`}">
+						<view class="teamName">
+							<view class="arrow-left"></view>
+							<view class="arrow-right"></view>
+							<view class="text-box">{{lang[item.__splatoon3ink_id].teams[i].teamName}}</view>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -86,6 +87,7 @@
 
 	const store = mainStore()
 	const {
+		lang,
 		festList,
 		festImgList
 	} = storeToRefs(store)
@@ -151,15 +153,20 @@
 
 			.teamNames {
 				display: flex;
-				justify-content: space-around;
 				text-shadow: 1rpx 1rpx 0 #000;
 				color: #fff;
 				margin-top: -30rpx;
 
+				.flex-1 {
+					flex: 1;
+				}
+
 				.teamName-outbox {
 					position: relative;
 					padding: 8rpx 9rpx;
+					margin: 0 auto;
 					transform: rotateZ(-3deg);
+					width: fit-content;
 				}
 
 				.teamName {
