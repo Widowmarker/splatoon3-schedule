@@ -100,7 +100,6 @@ export const mainStore = defineStore('main', {
 						this.lang[key] = all[key].name ?? all[key]
 					}
 					resolve(true)
-					console.log(this.lang);
 
 					// 用来查看图片id
 					// let weaponArr = {}
@@ -152,20 +151,16 @@ export const mainStore = defineStore('main', {
 			wx.cloud.getTempFileURL({
 				fileList: weaponCloudList0
 			}).then(res => {
-				weaponIdList0.forEach((idArr, index) => {
-					idArr.forEach(id => {
-						this.weaponImgList[id] = res.fileList[index].tempFileURL
-					})
+				weaponIdList0.forEach((name, index) => {
+					this.weaponImgList[name] = res.fileList[index].tempFileURL
 				})
 			})
 
 			wx.cloud.getTempFileURL({
 				fileList: weaponCloudList1
 			}).then(res => {
-				weaponIdList1.forEach((idArr, index) => {
-					idArr.forEach(id => {
-						this.weaponImgList[id] = res.fileList[index].tempFileURL
-					})
+				weaponIdList1.forEach((name, index) => {
+					this.weaponImgList[name] = res.fileList[index].tempFileURL
 				})
 			})
 		},

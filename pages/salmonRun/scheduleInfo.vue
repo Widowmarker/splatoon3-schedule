@@ -9,7 +9,7 @@
 		<view class="info">
 			<!-- 地图 -->
 			<view class="map-box">
-				<image v-if="scheduleInfo.source" :src="scheduleInfo.setting.coopStage.image.url" mode="aspectFill"
+				<image v-if="!mapImgList[scheduleInfo.setting.coopStage.id] || scheduleInfo.source" :src="scheduleInfo.setting.coopStage.image.url" mode="aspectFill"
 					class="map">
 				</image>
 				<image v-else :src="mapImgList[scheduleInfo.setting.coopStage.id]"
@@ -21,8 +21,8 @@
 				<text>提供武器</text>
 				<view class="weapons">
 					<view class="" v-for="weapon in scheduleInfo.setting.weapons" :key="scheduleInfo.__splatoon3ink_id">
-						<image v-if="weapon.source" :src="weapon.image.url" mode=""></image>
-						<image v-else :src="weaponImgList[weapon.__splatoon3ink_id]" mode=""
+						<image v-if="!weaponImgList[simplifyName(weapon.name)] || weapon.source" :src="weapon.image.url" mode=""></image>
+						<image v-else :src="weaponImgList[simplifyName(weapon.name)]" mode=""
 							@error="errorHandle($event,weapon)"></image>
 					</view>
 				</view>
@@ -36,7 +36,8 @@
 		defineProps
 	} from 'vue'
 	import {
-		handleTime
+		handleTime,
+		simplifyName
 	} from '../../utils/common'
 	import {
 		mainStore

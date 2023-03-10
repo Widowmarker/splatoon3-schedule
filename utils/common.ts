@@ -1,4 +1,4 @@
- // 处理时间格式(打工)
+// 处理时间格式(打工)
 const handleTime = (time: string) => {
 	const sourceTime = new Date(time)
 
@@ -32,4 +32,9 @@ const surplusTime = (time: string) => {
 	return Math.floor(surplus)
 }
 
-export { handleTime, handleHours, surplusTime }
+// 处理武器名称
+const simplifyName = (name: string) => {
+	return name.replaceAll(' ', '').replaceAll('\'', '').replaceAll('-', '').replaceAll('.', '')
+}
+
+export { handleTime, handleHours, surplusTime, simplifyName }

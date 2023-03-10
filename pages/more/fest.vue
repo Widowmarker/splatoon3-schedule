@@ -13,7 +13,8 @@
 			<!-- 队伍名称 -->
 			<view class="teamNames">
 				<view class="flex-1" v-for="(team,i) in item.teams" :key='team.id'>
-					<view class="teamName-outbox" :style="{background: `rgba(${team.color.r * 255}, ${team.color.g * 255}, ${team.color.b * 255}, ${team.color.a})`}">
+					<view class="teamName-outbox"
+						:style="{background: `rgba(${team.color.r * 255}, ${team.color.g * 255}, ${team.color.b * 255}, ${team.color.a})`}">
 						<view class="teamName">
 							<view class="arrow-left"></view>
 							<view class="arrow-right"></view>
@@ -40,7 +41,8 @@
 				<view class="result-all">
 					<view class="result-item" v-for="team in item.teams" :key='team.id'>
 						<!-- 队伍图标 -->
-						<view class="team-icon" :style="{background:team.background}">
+						<view class="team-icon"
+							:style="{background: `rgba(${team.color.r * 255}, ${team.color.g * 255}, ${team.color.b * 255}, ${team.color.a})`}">
 							<image v-if="!festImgList[team.id] || item.source" :src="team.image.url" mode=""></image>
 							<image v-else :src="festImgList[team.id]" mode="" @error="errorHandle($event,item)"></image>
 						</view>
