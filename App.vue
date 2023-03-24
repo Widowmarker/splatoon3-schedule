@@ -36,6 +36,7 @@
 			store.getMapImgList()
 			store.getWeaponImgList()
 			store.getFestImgList()
+			store.getKingImgList()
 		},
 		onShow: function() {
 			console.log('App Show')

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { mapCloudList, mapIdList, weaponCloudList0, weaponIdList0, weaponCloudList1, weaponIdList1, festCloud, festIdList } from './imgInfo'
+import { mapCloudList, mapIdList, weaponCloudList0, weaponIdList0, weaponCloudList1, weaponIdList1, festCloudList, festIdList, kingIdList, kingCloudList } from './imgInfo'
 import GearData from './types.ts'
 export const mainStore = defineStore('main', {
 	state: () => {
@@ -15,6 +15,7 @@ export const mainStore = defineStore('main', {
 			gear: {} as GearData, // 商城
 			mapImgList: {}, // 地图地址
 			weaponImgList: {}, // 武器地址
+			kingImgList: {}, // BOSS icon
 			festImgList: {}, // 祭奠图片地址
 			bannerImage: '', // 大型跑横幅
 			bigRunSchedules: null // 大型跑
@@ -31,7 +32,7 @@ export const mainStore = defineStore('main', {
 					data: {
 						type: 'schedules'
 					}
-				}).then((res: any) => {
+				}).then((res : any) => {
 					const { data: { regularSchedules, bankaraSchedules, coopGroupingSchedule, currentFest, festSchedules, xSchedules } } = JSON.parse(res.result)
 					this.regularBattleSchedules = regularSchedules.nodes
 					this.anarchyBattleSchedules = bankaraSchedules.nodes
@@ -58,9 +59,9 @@ export const mainStore = defineStore('main', {
 							this.currentFest = currentFest
 						}
 
-						if (festSchedules.nodes.filter((v: any) => v.festMatchSetting).length > 0) {
-							const arr1 = regularSchedules.nodes.filter((item: any) => item.regularMatchSetting)
-							const arr2 = festSchedules.nodes.filter((item: any) => {
+						if (festSchedules.nodes.filter((v : any) => v.festMatchSetting).length > 0) {
+							const arr1 = regularSchedules.nodes.filter((item : any) => item.regularMatchSetting)
+							const arr2 = festSchedules.nodes.filter((item : any) => {
 								if (item.festMatchSetting) {
 									item.regularMatchSetting = item.festMatchSetting
 									return item
@@ -85,7 +86,7 @@ export const mainStore = defineStore('main', {
 			})
 		},
 		// 获取语言
-		getLanguage(language: string = 'zh-CN') {
+		getLanguage(language : string = 'zh-CN') {
 			return new Promise((resolve, reject) => {
 				wx.cloud.init()
 				wx.cloud.callFunction({
@@ -93,7 +94,7 @@ export const mainStore = defineStore('main', {
 					data: {
 						language
 					}
-				}).then((res: any) => {
+				}).then((res : any) => {
 					const { stages, rules, gear, brands, powers, festivals /*weapons,*/ } = JSON.parse(res.result)
 					const all = { ...stages, ...rules, ...gear, ...brands, ...powers, ...festivals }
 					for (let key in all) {
@@ -127,7 +128,7 @@ export const mainStore = defineStore('main', {
 					data: {
 						type: 'gear'
 					}
-				}).then((res: any) => {
+				}).then((res : any) => {
 					this.gear = JSON.parse(res.result).data.gesotown
 					resolve(true)
 				}).catch(() => {
@@ -164,12 +165,21 @@ export const mainStore = defineStore('main', {
 				})
 			})
 		},
+		// 获取BOSS icon
+		getKingImgList() {
+			wx.cloud.getTempFileURL({
+				fileList: kingCloudList
+			}).then(res => {
+				kingIdList.forEach((name, index) => {
+					this.kingImgList[name] = res.fileList[index].tempFileURL
+				})
+			})
+		},
 		// 获取祭奠图片
 		getFestImgList() {
 			wx.cloud.getTempFileURL({
-				fileList: festCloud
+				fileList: festCloudList
 			}).then(res => {
-				this.festImgList
 				festIdList.forEach((id, index) => {
 					this.festImgList[id] = res.fileList[index].tempFileURL
 				})
@@ -183,7 +193,7 @@ export const mainStore = defineStore('main', {
 					data: {
 						type: 'festivals'
 					}
-				}).then((res: any) => {
+				}).then((res : any) => {
 					const { EU: { data: { festRecords: { nodes } } } } = JSON.parse(res.result)
 					this.festList = nodes
 					resolve(true)

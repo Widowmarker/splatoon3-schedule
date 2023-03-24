@@ -5,12 +5,13 @@
 			<image src="../../static/salmon-run-selected.png" mode=""></image>
 			<text class="splatoon2">{{handleTime(scheduleInfo?.startTime)}} -
 				{{handleTime(scheduleInfo?.endTime)}}</text>
+			<image :src="kingImgList[scheduleInfo.__splatoon3ink_king_salmonid_guess]" mode="" class="king"></image>
 		</view>
 		<view class="info">
 			<!-- 地图 -->
 			<view class="map-box">
-				<image v-if="!mapImgList[scheduleInfo.setting.coopStage.id] || scheduleInfo.source" :src="scheduleInfo.setting.coopStage.image.url" mode="aspectFill"
-					class="map">
+				<image v-if="!mapImgList[scheduleInfo.setting.coopStage.id] || scheduleInfo.source"
+					:src="scheduleInfo.setting.coopStage.image.url" mode="aspectFill" class="map">
 				</image>
 				<image v-else :src="mapImgList[scheduleInfo.setting.coopStage.id]"
 					@error="errorHandle($event,scheduleInfo)" mode="" class="map"></image>
@@ -21,7 +22,8 @@
 				<text>提供武器</text>
 				<view class="weapons">
 					<view class="" v-for="weapon in scheduleInfo.setting.weapons" :key="scheduleInfo.__splatoon3ink_id">
-						<image v-if="!weaponImgList[simplifyName(weapon.name)] || weapon.source" :src="weapon.image.url" mode=""></image>
+						<image v-if="!weaponImgList[simplifyName(weapon.name)] || weapon.source" :src="weapon.image.url"
+							mode=""></image>
 						<image v-else :src="weaponImgList[simplifyName(weapon.name)]" mode=""
 							@error="errorHandle($event,weapon)"></image>
 					</view>
@@ -59,11 +61,12 @@
 	const {
 		lang,
 		mapImgList,
-		weaponImgList
+		weaponImgList,
+		kingImgList
 	} = storeToRefs(store)
 
 	// 发生错误时用原图地址
-	const errorHandle = (e: any, item: any) => {
+	const errorHandle = (e : any, item : any) => {
 		if (e.type === 'error') item.source = true
 	}
 </script>
@@ -88,6 +91,12 @@
 				height: 66rpx;
 				margin-right: 15rpx;
 				vertical-align: middle;
+
+				&.king {
+					width: 45rpx;
+					height: 45rpx;
+					margin-left: 15rpx;
+				}
 			}
 		}
 
