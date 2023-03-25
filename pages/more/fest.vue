@@ -5,7 +5,7 @@
 			<view class="title">{{lang[item.__splatoon3ink_id].title}}</view>
 			<!-- 胜利队伍 -->
 			<view class="win-team">
-				<view v-for="team in item.teams" :key="team.id">{{team.result.isWinner ? 'WIN!' : ''}}</view>
+				<view v-for="team in item.teams" :key="team.id">{{team.result?.isWinner ? 'WIN!' : ''}}</view>
 			</view>
 			<!-- 祭奠封面 -->
 			<image v-if="!festImgList[item.id] || item.source" :src="item.image.url" mode=""></image>
@@ -30,7 +30,7 @@
 				{{handleTime(item.endTime)}}
 			</view>
 			<!-- 结果 -->
-			<view class="result">
+			<view class="result" v-if="item.teams[0].result">
 				<view class="mode">
 					<view>法螺获得率</view>
 					<view>得票率</view>
