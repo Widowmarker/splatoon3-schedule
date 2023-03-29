@@ -136,54 +136,23 @@ export const mainStore = defineStore('main', {
 				})
 			})
 		},
-		// 获取地图列表
-		getMapImgList() {
-			wx.cloud.init()
+		// 获取图片列表函数
+		getImgListFn(cloudList : string[], idList : string[], imgList : { [key : string] : string }) {
 			wx.cloud.getTempFileURL({
-				fileList: mapCloudList
+				fileList: cloudList
 			}).then(res => {
-				mapIdList.forEach((id, index) => {
-					this.mapImgList[id] = res.fileList[index].tempFileURL
+				idList.forEach((id, index) => {
+					imgList[id] = res.fileList[index].tempFileURL
 				})
 			})
 		},
-		// 获取武器列表（数组有长度限制，所以分开两次请求）
-		getWeaponImgList() {
-			wx.cloud.getTempFileURL({
-				fileList: weaponCloudList0
-			}).then(res => {
-				weaponIdList0.forEach((name, index) => {
-					this.weaponImgList[name] = res.fileList[index].tempFileURL
-				})
-			})
-
-			wx.cloud.getTempFileURL({
-				fileList: weaponCloudList1
-			}).then(res => {
-				weaponIdList1.forEach((name, index) => {
-					this.weaponImgList[name] = res.fileList[index].tempFileURL
-				})
-			})
-		},
-		// 获取BOSS icon
-		getKingImgList() {
-			wx.cloud.getTempFileURL({
-				fileList: kingCloudList
-			}).then(res => {
-				kingIdList.forEach((name, index) => {
-					this.kingImgList[name] = res.fileList[index].tempFileURL
-				})
-			})
-		},
-		// 获取祭奠图片
-		getFestImgList() {
-			wx.cloud.getTempFileURL({
-				fileList: festCloudList
-			}).then(res => {
-				festIdList.forEach((id, index) => {
-					this.festImgList[id] = res.fileList[index].tempFileURL
-				})
-			})
+		// 获取云储存图片
+		getCloudImgList() {
+			this.getImgListFn(mapCloudList, mapIdList, this.mapImgList) // 获取地图列表
+			this.getImgListFn(weaponCloudList0, weaponIdList0, this.weaponImgList) // 获取武器列表（数组有长度限制，所以分开两次请求）
+			this.getImgListFn(weaponCloudList1, weaponIdList1, this.weaponImgList) // 获取武器列表
+			this.getImgListFn(kingCloudList, kingIdList, this.kingImgList) // 获取BOSS icon
+			this.getImgListFn(festCloudList, festIdList, this.festImgList) // 获取祭奠图片
 		},
 		// 获取祭奠信息
 		getFest() {

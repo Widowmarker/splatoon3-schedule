@@ -33,10 +33,8 @@
 					store.getLanguage(res.data ?? 'zh-CN')
 				}
 			})
-			store.getMapImgList()
-			store.getWeaponImgList()
-			store.getFestImgList()
-			store.getKingImgList()
+			wx.cloud.init()
+			store.getCloudImgList()
 		},
 		onShow: function() {
 			console.log('App Show')
