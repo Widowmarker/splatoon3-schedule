@@ -76,6 +76,15 @@
 				"backgroundTextStyle": "light",
 				"backgroundColor": "#191919"
 			}
+		},
+		{
+			"path": "pages/salmonRun/bossSmell",
+			"style": {
+				"navigationBarTitleText": "BOSS触发机率表",
+				"enablePullDownRefresh": false,
+				"backgroundColor": "#191919"
+			}
+
 		}
 	],
 	"globalStyle": {

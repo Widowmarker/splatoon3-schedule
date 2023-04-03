@@ -33,7 +33,6 @@
 					store.getLanguage(res.data ?? 'zh-CN')
 				}
 			})
-			wx.cloud.init()
 			store.getCloudImgList()
 		},
 		onShow: function() {

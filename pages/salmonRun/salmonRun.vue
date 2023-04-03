@@ -13,6 +13,7 @@
 			<view class="state next">Next!</view>
 		</view>
 		<view class="container">
+			<view class="bossSmell" @click="toBossSmell">BOSS怒气表</view>
 			<ScheduleInfo v-for="(item,index) in salmonRunSchedules" :key="item?.startTime" :scheduleInfo="item"
 				:index="index"></ScheduleInfo>
 		</view>
@@ -72,6 +73,12 @@
 			const errorHandle = (e, item) => {
 				if (e.type === 'error') item.source = true
 			}
+			
+			const toBossSmell = () => {
+				uni.navigateTo({
+					url: './bossSmell'
+				})
+			}
 
 			return {
 				handleTime,
@@ -80,14 +87,15 @@
 				errorHandle,
 				mapImgList,
 				bigRunSchedules,
-				bannerImage
+				bannerImage,
+				toBossSmell
 			}
 		}
 
 	})
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.salmonRun {
 		position: relative;
 		padding-bottom: 60rpx;
@@ -156,8 +164,18 @@
 		}
 
 		.container {
+			position: relative;
 			padding: 0 30rpx 0 50rpx;
 			color: #ffffff;
+			
+			.bossSmell {
+				position: absolute;
+				right: 0;
+				top: 45rpx;
+				padding: 2rpx 20rpx 2rpx 30rpx;
+				background-color: #000000;
+				border-radius: 50rpx 0 0 50rpx;
+			}
 
 			.block {
 				width: 100%;

@@ -67,7 +67,11 @@ export const mainStore = defineStore('main', {
 									return item
 								}
 							})
-							this.regularBattleSchedules = arr1.concat(arr2)
+							if (arr1[0] && new Date(arr1[0].startTime).getTime() > new Date(arr2[0].startTime).getTime()) {
+								this.regularBattleSchedules = arr2.concat(arr1)
+							} else {
+								this.regularBattleSchedules = arr1.concat(arr2)
+							}
 						}
 					}
 
@@ -148,6 +152,7 @@ export const mainStore = defineStore('main', {
 		},
 		// 获取云储存图片
 		getCloudImgList() {
+			wx.cloud.init()
 			this.getImgListFn(mapCloudList, mapIdList, this.mapImgList) // 获取地图列表
 			this.getImgListFn(weaponCloudList0, weaponIdList0, this.weaponImgList) // 获取武器列表（数组有长度限制，所以分开两次请求）
 			this.getImgListFn(weaponCloudList1, weaponIdList1, this.weaponImgList) // 获取武器列表

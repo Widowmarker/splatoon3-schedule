@@ -47,8 +47,8 @@
 							<image v-else :src="festImgList[team.id]" mode="" @error="errorHandle($event,item)"></image>
 						</view>
 						<!-- 法螺获得率 -->
-						<view :class="{Top:team.result.isChallengeContributionRatioTop}">
-							{{(team.result.challengeContributionRatio * 100).toFixed(2)}}%
+						<view :class="{Top:team.result.isHoragaiRatioTop}">
+							{{(team.result.horagaiRatio * 100).toFixed(2)}}%
 						</view>
 						<!-- 得票率 -->
 						<view :class="{Top:team.result.isVoteRatioTop}">{{(team.result.voteRatio * 100).toFixed(2)}}%
@@ -58,8 +58,8 @@
 							{{(team.result.regularContributionRatio * 100).toFixed(2)}}%
 						</view>
 						<!-- 挑战 -->
-						<view :class="{Top:team.result.isHoragaiRatioTop}">
-							{{(team.result.horagaiRatio * 100).toFixed(2)}}%
+						<view :class="{Top:team.result.isChallengeContributionRatioTop}">
+							{{(team.result.challengeContributionRatio * 100).toFixed(2)}}%
 						</view>
 						<!-- 三色夺宝比赛 -->
 						<view :class="{Top:team.result.isTricolorContributionRatioTop}"
@@ -96,7 +96,7 @@
 	if (!festList.value) store.getFest().then(() => uni.hideLoading())
 
 	// 发生错误时用原图地址
-	const errorHandle = (e: any, item: any) => {
+	const errorHandle = (e : any, item : any) => {
 		if (e.type === 'error') item.source = true
 	}
 

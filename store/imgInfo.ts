@@ -186,7 +186,11 @@ const festCloudList = [
 	cloudId + '/fest/desertedIsland.png',
 	cloudId + '/fest/Gear.png',
 	cloudId + '/fest/Grub.png',
-	cloudId + '/fest/Fun.png'
+	cloudId + '/fest/Fun.png',
+	cloudId + '/fest/isReal.png',
+	cloudId + '/fest/Nessie.png',
+	cloudId + '/fest/Aliens.png',
+	cloudId + '/fest/Bigfoot.png',
 ]
 
 const festIdList = [
@@ -206,6 +210,10 @@ const festIdList = [
 	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwMTpBbHBoYQ==", // 工具
 	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwMTpCcmF2bw==", // 食物
 	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwMTpDaGFybGll", // 打发时间的东西
+	"RmVzdC1FVTpKVUVBLTAwMDA1", //真实存在的是？
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNTpBbHBoYQ==", // 尼斯湖水怪
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNTpCcmF2bw==", // 外星人
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNTpDaGFybGll", // 雪怪
 ]
 
 const kingCloudList = [
