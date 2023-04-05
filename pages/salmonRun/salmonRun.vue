@@ -171,7 +171,7 @@
 			.bossSmell {
 				position: absolute;
 				right: 0;
-				top: 45rpx;
+				top: 40rpx;
 				padding: 2rpx 20rpx 2rpx 30rpx;
 				background-color: #000000;
 				border-radius: 50rpx 0 0 50rpx;

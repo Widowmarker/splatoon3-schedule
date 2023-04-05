@@ -11,7 +11,7 @@
 			</view>
 		</view>
 		<view class="ps">
-			PS：每个玩家的气味值最高为5点，4个玩家加起来总共20点，是否触发BOSS战依据团队总共的气味值来决定，如下表。
+			PS：每个玩家的气味值最高为5点，4个玩家加起来总共20点，是否触发BOSS战依据团队总共的气味值来决定。
 			<br />
 			例如：开始该局打工时，4位玩家的气味值都为4点，总共16点，那么就是有60%的机率遇上BOSS
 		</view>
@@ -57,7 +57,7 @@
 
 <style lang="scss" scoped>
 	.bossSmell {
-		padding: 30rpx;
+		padding: 30rpx 30rpx 80rpx;
 
 		.container {
 			padding: 0 20rpx;
