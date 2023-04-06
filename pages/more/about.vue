@@ -10,7 +10,7 @@
 			</view>
 			<view class="hr"></view>
 			<view class="author">
-				小程序作者：Karen/Widowmarker
+				小程序作者：Karen/Widowmaker
 			</view>
 		</view>
 	</view>

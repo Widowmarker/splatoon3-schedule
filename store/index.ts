@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { mapCloudList, mapIdList, weaponCloudList0, weaponIdList0, weaponCloudList1, weaponIdList1, festCloudList, festIdList, kingIdList, kingCloudList } from './imgInfo'
-// import GearData from './types.ts'
+import GearData from './types'
 export const mainStore = defineStore('main', {
 	state: () => {
 		return {
@@ -12,7 +12,7 @@ export const mainStore = defineStore('main', {
 			fest: false, // 祭奠
 			festList: null, // 祭奠列表
 			currentFest: {} as any, // 当前祭奠信息
-			gear: {}, // as GearData, // 商城
+			gear: {} as GearData, // 商城
 			mapImgList: {}, // 地图地址
 			weaponImgList: {}, // 武器地址
 			kingImgList: {}, // BOSS icon
