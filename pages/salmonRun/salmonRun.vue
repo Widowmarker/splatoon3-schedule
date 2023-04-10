@@ -1,14 +1,14 @@
 <template>
 	<view class="salmonRun splatoon">
-		<!-- 大型跑 -->
-		<view class="bigRun container" v-if="bigRunSchedules">
-			<image :src="bannerImage" mode=""></image>
-			<view class="text">大型跑！</view>
-			<ScheduleInfo :scheduleInfo="bigRunSchedules"></ScheduleInfo>
+		<!-- 大型跑/团队竞赛 -->
+		<view class="bigRun container" v-if="bigRunSchedules || teamSchedules">
+			<image :src="bannerImage" mode="widthFix"></image>
+			<view class="text">{{ bigRunSchedules ? '大型跑！' : '团队竞赛！' }}</view>
+			<ScheduleInfo :scheduleInfo="bigRunSchedules ?? teamSchedules"></ScheduleInfo>
 		</view>
 
 		<!-- 正常打工日程 -->
-		<view class="time-bar" :style="{height: bigRunSchedules ? '65%' : '100%'}">
+		<view class="time-bar" :style="{height: (bigRunSchedules || teamSchedules) ? '65%' : '100%'}">
 			<view class="state open">Open!</view>
 			<view class="state next">Next!</view>
 		</view>
@@ -59,6 +59,7 @@
 				lang,
 				mapImgList,
 				bigRunSchedules,
+				teamSchedules,
 				bannerImage
 			} = storeToRefs(store)
 
@@ -73,7 +74,7 @@
 			const errorHandle = (e, item) => {
 				if (e.type === 'error') item.source = true
 			}
-			
+
 			const toBossSmell = () => {
 				uni.navigateTo({
 					url: './bossSmell'
@@ -87,6 +88,7 @@
 				errorHandle,
 				mapImgList,
 				bigRunSchedules,
+				teamSchedules,
 				bannerImage,
 				toBossSmell
 			}
@@ -112,7 +114,6 @@
 
 			image {
 				width: 100%;
-				height: 400rpx;
 			}
 
 			&.container {
@@ -121,7 +122,7 @@
 				background-image: linear-gradient(45deg, #4b4b4b 25%, #575757 0, #575757 50%, #4b4b4b 0, #4b4b4b 75%, #575757 0);
 				background-size: 100rpx 100rpx;
 
-				.block {
+				:deep(.block) {
 					padding: 0 30rpx;
 					box-sizing: border-box;
 				}
@@ -167,7 +168,7 @@
 			position: relative;
 			padding: 0 30rpx 0 50rpx;
 			color: #ffffff;
-			
+
 			.bossSmell {
 				position: absolute;
 				right: 0;

@@ -18,7 +18,8 @@ export const mainStore = defineStore('main', {
 			kingImgList: {}, // BOSS icon
 			festImgList: {}, // 祭奠图片地址
 			bannerImage: '', // 大型跑横幅
-			bigRunSchedules: null // 大型跑
+			bigRunSchedules: null, // 大型跑
+			teamSchedules: null // 团队竞赛
 		}
 	},
 	getters: {},
@@ -79,6 +80,12 @@ export const mainStore = defineStore('main', {
 					if (coopGroupingSchedule.bigRunSchedules.nodes?.length > 0) {
 						this.bigRunSchedules = coopGroupingSchedule.bigRunSchedules.nodes[0]
 						this.bigRunSchedules.source = true // 大型跑地图id不一样，让它直接加载原图
+						this.bannerImage = coopGroupingSchedule.bannerImage.url
+					}
+					
+					// 团队竞赛
+					if (coopGroupingSchedule.teamContestSchedules.nodes?.length > 0) {
+						this.teamSchedules = coopGroupingSchedule.teamContestSchedules.nodes[0]
 						this.bannerImage = coopGroupingSchedule.bannerImage.url
 					}
 
