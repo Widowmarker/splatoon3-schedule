@@ -82,7 +82,7 @@ export const mainStore = defineStore('main', {
 						this.bigRunSchedules.source = true // 大型跑地图id不一样，让它直接加载原图
 						this.bannerImage = coopGroupingSchedule.bannerImage.url
 					}
-					
+
 					// 团队竞赛
 					if (coopGroupingSchedule.teamContestSchedules.nodes?.length > 0) {
 						this.teamSchedules = coopGroupingSchedule.teamContestSchedules.nodes[0]
