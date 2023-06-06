@@ -2,7 +2,8 @@
 	<view class="block" :class="index === 0 && 'first'">
 		<!-- 时间 -->
 		<view class="time-range">
-			<image src="../../static/salmon-run-selected.png" mode=""></image>
+			<!-- <image src="../../static/salmon-run-selected.png" mode=""></image> -->
+			<modelIcon :modelType="modelType"></modelIcon>
 			<text class="splatoon2">{{handleTime(scheduleInfo?.startTime)}} -
 				{{handleTime(scheduleInfo?.endTime)}}</text>
 			<image :src="kingImgList[scheduleInfo.__splatoon3ink_king_salmonid_guess]" mode="" class="king"></image>
@@ -24,7 +25,7 @@
 					<view class="" v-for="weapon in scheduleInfo.setting.weapons" :key="scheduleInfo.__splatoon3ink_id">
 						<image v-if="!weaponImgList[simplifyName(weapon.name)] || weapon.source" :src="weapon.image.url"
 							mode=""></image>
-						<image v-else :src="weaponImgList[simplifyName(weapon.name)]" mode=""
+						<image v-else :src="weaponImgList[simplifyName(weapon.name, weapon.image.url)]" mode=""
 							@error="errorHandle($event,weapon)"></image>
 					</view>
 				</view>
@@ -47,6 +48,7 @@
 	import {
 		storeToRefs
 	} from 'pinia';
+	import modelIcon from "../../components/modelIcon.vue"
 	defineProps({
 		scheduleInfo: {
 			type: Object,
@@ -55,6 +57,10 @@
 		index: {
 			type: Number,
 			default: 1
+		},
+		modelType: {
+			type: String,
+			default: 'COOP'
 		}
 	})
 	const store = mainStore()

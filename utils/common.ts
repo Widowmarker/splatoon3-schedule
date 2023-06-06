@@ -33,7 +33,14 @@ const surplusTime = (time: string) => {
 }
 
 // 处理武器名称
-const simplifyName = (name: string) => {
+const simplifyName = (name: string, url?: string) => {
+	if (name === 'Random') {
+		if (url === 'https://splatoon3.ink/assets/splatnet/v1/ui_img/473fffb2442075078d8bb7125744905abdeae651b6a5b7453ae295582e45f7d1_0.png') {
+			return 'Random'
+		} else {
+			return 'GoldRandom'
+		}
+	}
 	return name.replaceAll(' ', '').replaceAll('\'', '').replaceAll('-', '').replaceAll('.', '')
 }
 

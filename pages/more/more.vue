@@ -9,7 +9,7 @@
 				<view>{{range[index].value}}</view>
 			</picker>
 		</view>
-		<view class="row" @click="toFest">祭奠</view>
+		<view class="row" @click="toFest">祭典</view>
 		<view class="row" @click="toAbout">关于</view>
 		<!-- <view class="row" @click="toSupport">支持作者</view> -->
 	</view>

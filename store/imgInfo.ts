@@ -20,7 +20,9 @@ const mapCloudList = [
 	cloudId + '/zpijpg50/BrinewaterSprings.jpg',
 	cloudId + '/zpijpg50/FlounderHeights.jpg',
 	cloudId + '/map/MantaMaria.png',
-	cloudId + '/map/UmamiRuins.png'
+	cloudId + '/map/UmamiRuins.png',
+	cloudId + '/map/BarnacleDime.png',
+	cloudId + '/map/HumpbackPumpTrack.png',
 ]
 
 const mapIdList = [
@@ -44,6 +46,8 @@ const mapIdList = [
 	'VnNTdGFnZS03', // 臭鱼干温泉
 	'VnNTdGFnZS0xOA==', // 鬼蝠鲼玛利亚号
 	'VnNTdGFnZS01', // 鱼霸遗迹
+	'VnNTdGFnZS04', // 塔拉波特购物公园
+	'VnNTdGFnZS0xNw==', // 昆布赛道
 ]
 
 const weaponCloudList0 = [
@@ -79,7 +83,6 @@ const weaponCloudList0 = [
 	cloudId + "/weapon/Nautilus47.png",
 	cloudId + "/weapon/Octobrush.png",
 	cloudId + "/weapon/REEFLUX450.png",
-	// "Random",
 	cloudId + "/weapon/RangeBlaster.png",
 	cloudId + "/weapon/RapidBlaster.png",
 	cloudId + "/weapon/RapidBlasterPro.png",
@@ -101,11 +104,14 @@ const weaponCloudList0 = [
 ]
 
 const weaponCloudList1 = [
+	cloudId + "/weapon/Random.png", // "Random",
+	cloudId + "/weapon/GoldRandom.png", // "Random",
 	cloudId + "/weapon/Squeezer.png",
 	cloudId + "/weapon/TentaBrella.png",
 	cloudId + "/weapon/TriSlosher.png",
 	cloudId + "/weapon/TriStringer.png",
 	cloudId + "/weapon/UndercoverBrella.png",
+	cloudId + "/weapon/Painbrush.png",
 ]
 
 const weaponIdList0 = [
@@ -163,11 +169,14 @@ const weaponIdList0 = [
 ]
 
 const weaponIdList1 = [
+	"Random",
+	"GoldRandom",
 	"Squeezer",
 	"TentaBrella",
 	"TriSlosher",
 	"TriStringer",
-	"UndercoverBrella"
+	"UndercoverBrella",
+	"Painbrush"
 ]
 
 const festCloudList = [
@@ -191,6 +200,10 @@ const festCloudList = [
 	cloudId + '/fest/Nessie.png',
 	cloudId + '/fest/Aliens.png',
 	cloudId + '/fest/Bigfoot.png',
+	cloudId + '/fest/youSeek.png',
+	cloudId + '/fest/Power.png',
+	cloudId + '/fest/Wisdom.png',
+	cloudId + '/fest/Courage.png',
 ]
 
 const festIdList = [
@@ -214,6 +227,10 @@ const festIdList = [
 	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNTpBbHBoYQ==", // 尼斯湖水怪
 	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNTpCcmF2bw==", // 外星人
 	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNTpDaGFybGll", // 雪怪
+	"RmVzdC1FVTpKVUVBLTAwMDA2", // 汝在追求什么？
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNjpBbHBoYQ==", // 力量
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNjpCcmF2bw==", // 智慧
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNjpDaGFybGll", // 勇气
 ]
 
 const kingCloudList = [

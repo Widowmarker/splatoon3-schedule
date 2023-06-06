@@ -4,7 +4,7 @@
 		<view class="bigRun container" v-if="bigRunSchedules || teamSchedules">
 			<image :src="bannerImage" mode="widthFix"></image>
 			<view class="text">{{ bigRunSchedules ? '大型跑！' : '团队竞赛！' }}</view>
-			<ScheduleInfo :scheduleInfo="bigRunSchedules ?? teamSchedules"></ScheduleInfo>
+			<ScheduleInfo :scheduleInfo="bigRunSchedules ?? teamSchedules" :modelType="coopType"></ScheduleInfo>
 		</view>
 
 		<!-- 正常打工日程 -->
@@ -22,6 +22,7 @@
 
 <script>
 	import {
+		computed,
 		defineComponent,
 		ref
 	} from "vue";
@@ -81,6 +82,10 @@
 				})
 			}
 
+			const coopType = computed(() => bigRunSchedules.value ? 'COOPBIGRUN' : teamSchedules.value ?
+				'COOPEGGSTRA' :
+				'COOP')
+
 			return {
 				handleTime,
 				salmonRunSchedules,
@@ -90,7 +95,8 @@
 				bigRunSchedules,
 				teamSchedules,
 				bannerImage,
-				toBossSmell
+				toBossSmell,
+				coopType
 			}
 		}
 
