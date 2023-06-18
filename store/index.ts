@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { mapCloudList, mapIdList, weaponCloudList0, weaponIdList0, weaponCloudList1, weaponIdList1, festCloudList, festIdList, kingIdList, kingCloudList } from './imgInfo'
+import { mapCloudList, mapIdList, weaponCloudList0, weaponIdList0, weaponCloudList1, weaponIdList1, festCloudList, festIdList, kingIdList, kingCloudList, otherCloudList, otherIdList } from './imgInfo'
 import GearData from './types'
 export const mainStore = defineStore('main', {
 	state: () => {
@@ -17,6 +17,7 @@ export const mainStore = defineStore('main', {
 			weaponImgList: {}, // 武器地址
 			kingImgList: {}, // BOSS icon
 			festImgList: {}, // 祭奠图片地址
+			otherImgList: {}, // 其他图片地址
 			bannerImage: '', // 大型跑横幅
 			bigRunSchedules: null, // 大型跑
 			teamSchedules: null // 团队竞赛
@@ -79,14 +80,16 @@ export const mainStore = defineStore('main', {
 					// 大型跑
 					if (coopGroupingSchedule.bigRunSchedules.nodes?.length > 0) {
 						this.bigRunSchedules = coopGroupingSchedule.bigRunSchedules.nodes[0]
-						this.bigRunSchedules.source = true // 大型跑地图id不一样，让它直接加载原图
-						this.bannerImage = coopGroupingSchedule.bannerImage.url
+						// this.bigRunSchedules.source = true // 大型跑地图id不一样，让它直接加载原图
+						// this.bannerImage = coopGroupingSchedule.bannerImage.url
+						this.bannerImage = this.otherImgList.bigRun
 					}
 
 					// 团队竞赛
 					if (coopGroupingSchedule.teamContestSchedules.nodes?.length > 0) {
 						this.teamSchedules = coopGroupingSchedule.teamContestSchedules.nodes[0]
-						this.bannerImage = coopGroupingSchedule.bannerImage.url
+						// this.bannerImage = coopGroupingSchedule.bannerImage.url
+						this.bannerImage = this.otherImgList.teamSchedules
 					}
 
 					resolve(true)
@@ -165,6 +168,7 @@ export const mainStore = defineStore('main', {
 			this.getImgListFn(weaponCloudList1, weaponIdList1, this.weaponImgList) // 获取武器列表
 			this.getImgListFn(kingCloudList, kingIdList, this.kingImgList) // 获取BOSS icon
 			this.getImgListFn(festCloudList, festIdList, this.festImgList) // 获取祭奠图片
+			this.getImgListFn(otherCloudList, otherIdList, this.otherImgList) // 获取其他图片
 		},
 		// 获取祭奠信息
 		getFest() {

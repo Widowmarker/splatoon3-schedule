@@ -5,6 +5,7 @@ const mapCloudList = [
 	cloudId + '/zpijpg50/GoneFissionHydroplant.jpg',
 	cloudId + '/zpijpg50/SpawningGrounds.jpg',
 	cloudId + '/zpijpg50/MaroonersBay.jpg',
+	cloudId + '/map/JamminSalmonJunction.png',
 	cloudId + '/zpijpg50/ScorchGorge.jpg',
 	cloudId + '/zpijpg50/HammerheadBridge.jpg',
 	cloudId + "/zpijpg50/MuseumdAlfonsino.jpg",
@@ -30,6 +31,7 @@ const mapIdList = [
 	'Q29vcFN0YWdlLTc=', // 发电站
 	'Q29vcFN0YWdlLTE=', // 大坝
 	'Q29vcFN0YWdlLTY=', // 破船
+	'Q29vcFN0YWdlLTg=', // 生筋子系统交流道遗址
 	'VnNTdGFnZS0x', // 温泉花大峡谷
 	'VnNTdGFnZS0xMA==', // 真鲭跨海大桥
 	'VnNTdGFnZS0xMQ==', // 金眼鲷美术馆
@@ -243,6 +245,16 @@ const kingIdList = [
 	'Horrorboros', // 辰龙
 ]
 
+const otherCloudList = [
+	cloudId + '/other/bigRun.png',
+	cloudId + '/other/teamSchedules.png'
+]
+
+const otherIdList = [
+	'bigRun', // 大型跑
+	'teamSchedules', // 团队竞赛
+]
+
 export {
 	mapCloudList,
 	mapIdList,
@@ -253,5 +265,7 @@ export {
 	festCloudList,
 	festIdList,
 	kingIdList,
-	kingCloudList
+	kingCloudList,
+	otherCloudList,
+	otherIdList
 }
