@@ -114,6 +114,7 @@ const weaponCloudList1 = [
 	cloudId + "/weapon/TriStringer.png",
 	cloudId + "/weapon/UndercoverBrella.png",
 	cloudId + "/weapon/Painbrush.png",
+	cloudId + "/weapon/SBLAST92.png",
 ]
 
 const weaponIdList0 = [
@@ -178,7 +179,8 @@ const weaponIdList1 = [
 	"TriSlosher",
 	"TriStringer",
 	"UndercoverBrella",
-	"Painbrush"
+	"Painbrush",
+	"SBLAST92"
 ]
 
 const festCloudList = [
