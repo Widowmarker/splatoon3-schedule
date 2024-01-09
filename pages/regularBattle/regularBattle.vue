@@ -3,16 +3,33 @@
 		<view class="time-bar"></view>
 		<view class="container">
 			<view class="block" v-for="item in list" :key="item?.startTime"
-				:class="!item.regularMatchSetting && 'empty'">
-				<template v-if="item.regularMatchSetting">
+				:class="[!item.regularMatchSetting && 'empty', item.regularMatchSetting.length && 'fest']">
+				<template v-if="!item.regularMatchSetting.length">
 					<view class="time state">{{handleTime(item.startTime)}}</view>
 					<coopStage :leftUrl="item.regularMatchSetting.vsStages[0].image.url"
 						:leftName="item.regularMatchSetting.vsStages[0].id"
 						:rightUrl="item.regularMatchSetting.vsStages[1].image.url"
 						:rightName="item.regularMatchSetting.vsStages[1].id"></coopStage>
 				</template>
+				<template v-else>
+					<!-- 祭典日程 -->
+					<view class="time state">{{handleTime(item.startTime)}}</view>
+					<view class="challenge-and-open" v-for="(anarchy,idx) in item.regularMatchSetting" :key="idx">
+						<view class="model">
+							祭典比赛
+							<text class="splatoon2">{{typeObj[anarchy.festMode]}}</text>
+						</view>
+						<!-- 地图 -->
+						<coopStage :leftUrl="anarchy.vsStages[0].image.url" :leftName="anarchy.vsStages[0].id"
+							:rightUrl="anarchy.vsStages[1].image.url" :rightName="anarchy.vsStages[1].id">
+						</coopStage>
+					</view>
+				</template>
 			</view>
 			<view class="more" v-if="!isMore && list.length" @click="isMore = true">查看更多</view>
+		</view>
+		<view v-if="!fest" class="eventBtn" @click="toEventBattle">
+			<image src="../../static/event.svg" mode=""></image>活动比赛
 		</view>
 	</view>
 </template>
@@ -40,12 +57,24 @@
 	const store = mainStore()
 	const {
 		regularBattleSchedules,
+		fest
 	} = storeToRefs(store)
 
 	const isMore = ref(false)
 	const list = computed(() => {
 		return isMore.value ? regularBattleSchedules.value : regularBattleSchedules.value.slice(0, 4)
 	})
+
+	const typeObj = {
+		'CHALLENGE': '挑战',
+		'REGULAR': '开放'
+	}
+
+	const toEventBattle = () => {
+		uni.navigateTo({
+			url: './eventBattle'
+		})
+	}
 
 	// 下拉刷新
 	onPullDownRefresh(() => {
@@ -108,6 +137,34 @@
 					position: absolute;
 					top: 70rpx;
 				}
+
+
+				&.fest {
+					:deep(.coopStage) {
+						position: static;
+						top: 0rpx;
+					}
+				}
+
+				.challenge-and-open {
+					padding-top: 50rpx;
+					color: #fff;
+
+					.model {
+						margin-bottom: 5rpx;
+
+						text {
+							display: inline-block;
+							background-color: #5a3cf4;
+							padding: 0 10rpx;
+							line-height: 40rpx;
+						}
+					}
+				}
+			}
+
+			.fest {
+				height: 550rpx;
 			}
 
 			.empty {
@@ -122,6 +179,24 @@
 				border-radius: 50rpx;
 				text-align: center;
 				color: #fff;
+			}
+		}
+
+		.eventBtn {
+			position: fixed;
+			top: 20rpx;
+			right: 0rpx;
+			width: 200rpx;
+			border-radius: 30rpx 0 0 30rpx;
+			background-color: #1a1b20;
+			color: #fff;
+			text-align: center;
+
+			image {
+				width: 50rpx;
+				height: 50rpx;
+				vertical-align: -12rpx;
+				margin-right: 5rpx;
 			}
 		}
 	}

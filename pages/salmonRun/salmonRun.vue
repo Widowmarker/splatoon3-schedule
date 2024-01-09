@@ -10,7 +10,7 @@
 		<!-- 正常打工日程 -->
 		<view class="time-bar" :style="{height: (bigRunSchedules || teamSchedules) ? '65%' : '100%'}">
 			<view class="state open">Open!</view>
-			<view class="state next">Next!</view>
+			<view class="state next" :class="{ firstRandom: firstRandom }">Next!</view>
 		</view>
 		<view class="container">
 			<view class="bossSmell" @click="toBossSmell">BOSS怒气表</view>
@@ -86,6 +86,8 @@
 				'COOPEGGSTRA' :
 				'COOP')
 
+			const firstRandom = salmonRunSchedules.value[0].setting.weapons.some(v => v.name === 'Random')
+
 			return {
 				handleTime,
 				salmonRunSchedules,
@@ -96,7 +98,8 @@
 				teamSchedules,
 				bannerImage,
 				toBossSmell,
-				coopType
+				coopType,
+				firstRandom
 			}
 		}
 
@@ -167,6 +170,10 @@
 
 			.next {
 				top: 390rpx;
+			}
+
+			.firstRandom {
+				top: 505rpx;
 			}
 		}
 

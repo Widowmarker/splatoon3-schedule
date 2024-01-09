@@ -7,7 +7,7 @@
 			<view class="win-team">
 				<view v-for="team in item.teams" :key="team.id">{{team.result?.isWinner ? 'WIN!' : ''}}</view>
 			</view>
-			<!-- 祭奠封面 -->
+			<!-- 祭典封面 -->
 			<image v-if="!festImgList[item.id] || item.source" :src="item.image.url" mode=""></image>
 			<image v-else :src="festImgList[item.id]" mode="" @error="errorHandle($event,item)"></image>
 			<!-- 队伍名称 -->

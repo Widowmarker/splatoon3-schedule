@@ -83,8 +83,8 @@
 				left: 50%;
 				transform: translateX(-50%);
 				background-color: #000000;
-				line-height: 45rpx;
-				padding: 0 10rpx;
+				line-height: 36rpx;
+				padding: 0 4rpx;
 				white-space: nowrap;
 				color: #fff;
 				font-size: 24rpx;

@@ -16,6 +16,7 @@
 	import coop from "../static/salmon-run-selected.png"
 	import coopBigrun from "../static/coopBigrun.svg"
 	import coopEggstra from "../static/coopEggstra.svg"
+	import regular from "../static/regular.svg"
 
 	const props = defineProps({
 		modelType: {
@@ -40,9 +41,10 @@
 				return coopBigrun;
 			case 'COOPEGGSTRA': // 团队竞赛
 				return coopEggstra;
-				// Turf War
+			case 'TURF_WAR': // Turf War
+				return regular;
 			default:
-				return;
+				return regular;
 		}
 	})
 </script>

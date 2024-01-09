@@ -4,11 +4,11 @@
 		<view class="time-range">
 			<!-- <image src="../../static/salmon-run-selected.png" mode=""></image> -->
 			<modelIcon :modelType="modelType"></modelIcon>
-			<text class="splatoon2">{{handleTime(scheduleInfo?.startTime)}} -
+			<text class="splatoon2">{{handleTimeDate(scheduleInfo?.startTime)}} -
 				{{handleTime(scheduleInfo?.endTime)}}</text>
-			<image :src="kingImgList[scheduleInfo.__splatoon3ink_king_salmonid_guess]" mode="" class="king"></image>
+			<!-- <image :src="kingImgList[scheduleInfo.__splatoon3ink_king_salmonid_guess] " mode="" class="king"></image> -->
 		</view>
-		<view class="info">
+		<view class="info" :class="{hasRare:hasRare}">
 			<!-- 地图 -->
 			<view class="map-box">
 				<image v-if="!mapImgList[scheduleInfo.setting.coopStage.id] || scheduleInfo.source"
@@ -20,7 +20,9 @@
 			</view>
 			<!-- 武器 -->
 			<view class="weapons-box">
-				<text>提供武器</text>
+				<!-- <text>提供武器</text> -->
+				<image :src="kingImgList[scheduleInfo.__splatoon3ink_king_salmonid_guess] " mode="" class="king">
+				</image>
 				<view class="weapons">
 					<view class="" v-for="weapon in scheduleInfo.setting.weapons" :key="scheduleInfo.__splatoon3ink_id">
 						<image v-if="!weaponImgList[simplifyName(weapon.name)] || weapon.source" :src="weapon.image.url"
@@ -30,16 +32,24 @@
 					</view>
 				</view>
 			</view>
+			<!-- 熊武器 -->
+			<view class="rare-weapons-box" v-if="hasRare">
+				<view class="weapon" v-for="item in filterRareArr" :key="item.id" :class="{active: item.active}">
+					<image :src="weaponImgList[item.id + '']" mode=""></image>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
 
 <script setup lang="ts">
 	import {
+		computed,
 		defineProps
 	} from 'vue'
 	import {
 		handleTime,
+		handleTimeDate,
 		simplifyName
 	} from '../../utils/common'
 	import {
@@ -49,7 +59,7 @@
 		storeToRefs
 	} from 'pinia';
 	import modelIcon from "../../components/modelIcon.vue"
-	defineProps({
+	const props = defineProps({
 		scheduleInfo: {
 			type: Object,
 			default: () => ({})
@@ -68,13 +78,26 @@
 		lang,
 		mapImgList,
 		weaponImgList,
-		kingImgList
+		kingImgList,
+		rareArr
 	} = storeToRefs(store)
 
 	// 发生错误时用原图地址
 	const errorHandle = (e : any, item : any) => {
 		if (e.type === 'error') item.source = true
 	}
+
+	const allRare = [20900, 26900, 22900, 23900, 27900, 28900, 25900]
+	const filterRareArr = computed(() => {
+		return allRare.map(item => {
+			return {
+				id: item,
+				active: rareArr.value.includes(item)
+			}
+		})
+	})
+	// 是否有问号武器且是否已知熊武器
+	const hasRare = computed(() => props.scheduleInfo.setting.weapons.some(v => v.name === 'Random') && rareArr.value.length)
 </script>
 
 <style lang="scss" scoped>
@@ -107,9 +130,15 @@
 		}
 
 		.info {
+			position: relative;
 			display: flex;
 			border-radius: 20rpx;
 			background-color: #3b4049;
+			height: 160rpx;
+
+			&.hasRare {
+				height: 280rpx;
+			}
 
 			.map-box {
 				position: relative;
@@ -129,8 +158,8 @@
 					left: 50%;
 					transform: translateX(-50%);
 					background-color: #000000;
-					line-height: 45rpx;
-					padding: 0 10rpx;
+					line-height: 36rpx;
+					padding: 0 4rpx;
 					white-space: nowrap;
 					font-size: 24rpx;
 				}
@@ -138,7 +167,15 @@
 
 			.weapons-box {
 				flex: 1;
-				text-align: center;
+				// text-align: center;
+
+				.king {
+					width: 45rpx;
+					height: 45rpx;
+					padding-left: 15rpx;
+					margin: 0 15rpx;
+					margin-bottom: -12rpx;
+				}
 
 				.weapons {
 					display: flex;
@@ -156,6 +193,35 @@
 						width: 60rpx;
 						height: 60rpx;
 					}
+				}
+			}
+		}
+
+		.rare-weapons-box {
+			position: absolute;
+			top: 190rpx;
+			left: 50%;
+			transform: translateX(-50%);
+			display: flex;
+			justify-content: space-between;
+			width: calc(100% - 30rpx);
+			background-color: #000;
+			border-radius: 50rpx;
+
+			.weapon {
+				padding: 10rpx;
+				border-radius: 50rpx;
+				height: 60rpx;
+				opacity: .6;
+
+				image {
+					width: 60rpx;
+					height: 60rpx;
+				}
+
+				&.active {
+					opacity: 1;
+					background-color: #d85a2a;
 				}
 			}
 		}

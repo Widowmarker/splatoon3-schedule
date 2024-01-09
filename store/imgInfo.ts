@@ -5,7 +5,8 @@ const mapCloudList = [
 	cloudId + '/zpijpg50/GoneFissionHydroplant.jpg',
 	cloudId + '/zpijpg50/SpawningGrounds.jpg',
 	cloudId + '/zpijpg50/MaroonersBay.jpg',
-	cloudId + '/map/JamminSalmonJunction.png',
+	cloudId + '/zpijpg50/JamminSalmonJunction.jpg',
+	cloudId + '/zpijpg50/SalmonidSmokeyard.jpg',
 	cloudId + '/zpijpg50/ScorchGorge.jpg',
 	cloudId + '/zpijpg50/HammerheadBridge.jpg',
 	cloudId + "/zpijpg50/MuseumdAlfonsino.jpg",
@@ -20,10 +21,14 @@ const mapCloudList = [
 	cloudId + '/zpijpg50/MincemeatMetalworks.jpg',
 	cloudId + '/zpijpg50/BrinewaterSprings.jpg',
 	cloudId + '/zpijpg50/FlounderHeights.jpg',
-	cloudId + '/map/MantaMaria.png',
-	cloudId + '/map/UmamiRuins.png',
-	cloudId + '/map/BarnacleDime.png',
-	cloudId + '/map/HumpbackPumpTrack.png',
+	cloudId + '/zpijpg50/MantaMaria.jpg',
+	cloudId + '/zpijpg50/UmamiRuins.jpg',
+	cloudId + '/zpijpg50/BarnacleDime.jpg',
+	cloudId + '/zpijpg50/HumpbackPumpTrack.jpg',
+	cloudId + '/zpijpg50/ShipshapeCargoCo.jpg',
+	cloudId + '/zpijpg50/CrablegCapital.jpg',
+	cloudId + '/zpijpg50/BluefinDepot.jpg',
+	cloudId + '/zpijpg50/RoboROM-en.jpg',
 ]
 
 const mapIdList = [
@@ -32,6 +37,7 @@ const mapIdList = [
 	'Q29vcFN0YWdlLTE=', // 大坝
 	'Q29vcFN0YWdlLTY=', // 破船
 	'Q29vcFN0YWdlLTg=', // 生筋子系统交流道遗址
+	'Q29vcFN0YWdlLTQ=', // 鲑鱼岛
 	'VnNTdGFnZS0x', // 温泉花大峡谷
 	'VnNTdGFnZS0xMA==', // 真鲭跨海大桥
 	'VnNTdGFnZS0xMQ==', // 金眼鲷美术馆
@@ -44,12 +50,16 @@ const mapIdList = [
 	'VnNTdGFnZS0z', // 烟管鱼市场
 	'VnNTdGFnZS00', // 竹蛏疏洪道
 	'VnNTdGFnZS02', // 鱼肉碎金属
-	'VnNTdGFnZS05', // 比目鱼住宅区
 	'VnNTdGFnZS03', // 臭鱼干温泉
+	'VnNTdGFnZS05', // 比目鱼住宅区
 	'VnNTdGFnZS0xOA==', // 鬼蝠鲼玛利亚号
 	'VnNTdGFnZS01', // 鱼霸遗迹
 	'VnNTdGFnZS04', // 塔拉波特购物公园
 	'VnNTdGFnZS0xNw==', // 昆布赛道
+	'VnNTdGFnZS0yMA==', // 大比目鱼海运中心
+	'VnNTdGFnZS0xOQ==', // 高脚经济特区
+	'VnNTdGFnZS0yMg==', // 葱鲔鱼煤矿场
+	'VnNTdGFnZS0yMQ==', // 贝见亭
 ]
 
 const weaponCloudList0 = [
@@ -115,6 +125,15 @@ const weaponCloudList1 = [
 	cloudId + "/weapon/UndercoverBrella.png",
 	cloudId + "/weapon/Painbrush.png",
 	cloudId + "/weapon/SBLAST92.png",
+	cloudId + "/weapon/DreadWringer.png",
+	cloudId + "/weapon/HeavyEditSplatling.png",
+	cloudId + "/weapon/Blaster_Bear_Coop.webp", // 熊泡 20900
+	cloudId + "/weapon/Charger_Bear_Coop.webp", // 熊狙 22900
+	cloudId + "/weapon/Maneuver_Bear_Coop.webp", // 熊双 25900
+	cloudId + "/weapon/Saber_Bear_Coop.webp", // 熊刀 28900
+	cloudId + "/weapon/Shelter_Bear_Coop.webp", // 熊伞 26900
+	cloudId + "/weapon/Slosher_Bear_Coop.webp", // 熊桶 23900
+	cloudId + "/weapon/Stringer_Bear_Coop.webp", // 熊弓 27900
 ]
 
 const weaponIdList0 = [
@@ -180,7 +199,16 @@ const weaponIdList1 = [
 	"TriStringer",
 	"UndercoverBrella",
 	"Painbrush",
-	"SBLAST92"
+	"SBLAST92",
+	"DreadWringer",
+	"HeavyEditSplatling",
+	"20900",
+	"22900",
+	"25900",
+	"28900",
+	"26900",
+	"23900",
+	"27900",
 ]
 
 const festCloudList = [
@@ -208,6 +236,14 @@ const festCloudList = [
 	cloudId + '/fest/Power.png',
 	cloudId + '/fest/Wisdom.png',
 	cloudId + '/fest/Courage.png',
+	cloudId + '/fest/IceCream.png',
+	cloudId + '/fest/Vanilla.png',
+	cloudId + '/fest/Strawberry.png',
+	cloudId + '/fest/MintChip.png',
+	cloudId + '/fest/MostImportantInLife.png',
+	cloudId + '/fest/Money.png',
+	cloudId + '/fest/Fame.png',
+	cloudId + '/fest/Love.png',
 ]
 
 const festIdList = [
@@ -235,16 +271,28 @@ const festIdList = [
 	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNjpBbHBoYQ==", // 力量
 	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNjpCcmF2bw==", // 智慧
 	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNjpDaGFybGll", // 勇气
+    "RmVzdC1FVTpKVUVBLTAwMDA3", // 说到冰淇淋你会想起？
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNzpBbHBoYQ==", // 香草
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNzpCcmF2bw==", // 草莓
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNzpDaGFybGll", // 薄荷巧克力
+	"RmVzdC1FVTpKVUVBLTAwMDA4", // 人生中最重要的是什么？
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwODpBbHBoYQ==", // 钱
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwODpCcmF2bw==", // 利
+	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwODpDaGFybGll", // 爱
 ]
 
 const kingCloudList = [
-	cloudId + '/king/Cohozuna.png',
-	cloudId + '/king/Horrorboros.png',
+	// cloudId + '/king/Cohozuna.png',
+	// cloudId + '/king/Horrorboros.png',
+	cloudId + '/king/gameIcon/Cohozuna.png',
+	cloudId + '/king/gameIcon/Horrorboros.png',
+	cloudId + '/king/gameIcon/Megalodontia.png',
 ]
 
 const kingIdList = [
-	'Cohozuna', // 横岗
+	'Cohozuna', // 横纲
 	'Horrorboros', // 辰龙
+	'Megalodontia', // 巨颚
 ]
 
 const otherCloudList = [

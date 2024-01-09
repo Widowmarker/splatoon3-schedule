@@ -12,7 +12,7 @@
 						<view class="model">
 							<modelIcon :modelType="anarchy.vsRule.rule"></modelIcon>
 							{{lang[anarchy.vsRule.id]}}
-							<text class="splatoon2">{{typeObj[anarchy.mode]}}</text>
+							<text class="splatoon2">{{typeObj[anarchy.bankaraMode]}}</text>
 						</view>
 						<!-- 地图 -->
 						<coopStage :leftUrl="anarchy.vsStages[0].image.url" :leftName="anarchy.vsStages[0].id"
@@ -204,7 +204,7 @@
 			position: fixed;
 			top: 20rpx;
 			right: 0rpx;
-			width: 150rpx;
+			width: 160rpx;
 			border-radius: 30rpx 0 0 30rpx;
 			background-color: #1a1b20;
 			color: #fff;

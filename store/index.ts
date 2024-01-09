@@ -9,18 +9,20 @@ export const mainStore = defineStore('main', {
 			xBattleSchedules: [] as any, // 真格日程
 			salmonRunSchedules: [], // 打工日程
 			lang: {}, // 语言
-			fest: false, // 祭奠
-			festList: null, // 祭奠列表
-			currentFest: {} as any, // 当前祭奠信息
+			fest: false, // 祭典
+			festList: null, // 祭典列表
+			currentFest: {} as any, // 当前祭典信息
 			gear: {} as GearData, // 商城
 			mapImgList: {}, // 地图地址
 			weaponImgList: {}, // 武器地址
 			kingImgList: {}, // BOSS icon
-			festImgList: {}, // 祭奠图片地址
+			festImgList: {}, // 祭典图片地址
 			otherImgList: {}, // 其他图片地址
 			bannerImage: '', // 大型跑横幅
 			bigRunSchedules: null, // 大型跑
-			teamSchedules: null // 团队竞赛
+			teamSchedules: null, // 团队竞赛
+			eventSchedules: [] as any, // 活动比赛
+			rareArr: [], // 熊武器
 		}
 	},
 	getters: {},
@@ -35,11 +37,36 @@ export const mainStore = defineStore('main', {
 						type: 'schedules'
 					}
 				}).then((res : any) => {
-					const { data: { regularSchedules, bankaraSchedules, coopGroupingSchedule, currentFest, festSchedules, xSchedules } } = JSON.parse(res.result)
+					const { data: { regularSchedules, bankaraSchedules, coopGroupingSchedule, currentFest, festSchedules, xSchedules, eventSchedules } } = res.result.res ? JSON.parse(res.result.res) : JSON.parse(res.result)
 					this.regularBattleSchedules = regularSchedules.nodes
 					this.anarchyBattleSchedules = bankaraSchedules.nodes
 					this.xBattleSchedules = xSchedules.nodes
 					this.salmonRunSchedules = coopGroupingSchedule.regularSchedules.nodes
+					this.eventSchedules = eventSchedules.nodes
+
+					// 查看武器
+					// let t = this.salmonRunSchedules.flatMap(item => {
+					// 	return item.setting.weapons.flatMap(weapon => weapon.name)
+					// })
+					// console.log(t);
+
+					if (res.result.res) {
+						const phasesData = JSON.parse(res.result.resPhases)
+						const rareArr = phasesData.Normal.flatMap(item => item.rareWeapons.flat())
+						this.rareArr = rareArr
+					}
+
+					// 活动比赛是否举行中
+					this.eventSchedules.forEach((item : any) => {
+						item.timePeriods.forEach((ite : any) => {
+							const startTime = new Date(ite.startTime).getTime()
+							const endTime = new Date(ite.endTime).getTime()
+							const now = new Date().getTime()
+							if (startTime <= now && endTime >= now) {
+								item.eventHold = true
+							}
+						})
+					})
 					// 用来查看图片id
 					// const obj = {}
 					// this.regularBattleSchedules.forEach(item => {
@@ -50,7 +77,7 @@ export const mainStore = defineStore('main', {
 					// 	})
 					// })
 
-					// 祭奠
+					// 祭典
 					if (currentFest) {
 						const startTime = new Date(currentFest.startTime).getTime()
 						const endTime = new Date(currentFest.endTime).getTime()
@@ -61,11 +88,11 @@ export const mainStore = defineStore('main', {
 							this.currentFest = currentFest
 						}
 
-						if (festSchedules.nodes.filter((v : any) => v.festMatchSetting).length > 0) {
+						if (festSchedules.nodes.filter((v : any) => v.festMatchSettings).length > 0) {
 							const arr1 = regularSchedules.nodes.filter((item : any) => item.regularMatchSetting)
 							const arr2 = festSchedules.nodes.filter((item : any) => {
-								if (item.festMatchSetting) {
-									item.regularMatchSetting = item.festMatchSetting
+								if (item.festMatchSettings) {
+									item.regularMatchSetting = item.festMatchSettings
 									return item
 								}
 							})
@@ -109,10 +136,13 @@ export const mainStore = defineStore('main', {
 						language
 					}
 				}).then((res : any) => {
-					const { stages, rules, gear, brands, powers, festivals /*weapons,*/ } = JSON.parse(res.result)
+					const { stages, rules, gear, brands, powers, festivals, /*weapons,*/ events } = JSON.parse(res.result)
 					const all = { ...stages, ...rules, ...gear, ...brands, ...powers, ...festivals }
 					for (let key in all) {
 						this.lang[key] = all[key].name ?? all[key]
+					}
+					for (let key in events) {
+						this.lang[key] = events[key]
 					}
 					resolve(true)
 
@@ -167,10 +197,10 @@ export const mainStore = defineStore('main', {
 			this.getImgListFn(weaponCloudList0, weaponIdList0, this.weaponImgList) // 获取武器列表（数组有长度限制，所以分开两次请求）
 			this.getImgListFn(weaponCloudList1, weaponIdList1, this.weaponImgList) // 获取武器列表
 			this.getImgListFn(kingCloudList, kingIdList, this.kingImgList) // 获取BOSS icon
-			this.getImgListFn(festCloudList, festIdList, this.festImgList) // 获取祭奠图片
+			this.getImgListFn(festCloudList, festIdList, this.festImgList) // 获取祭典图片
 			this.getImgListFn(otherCloudList, otherIdList, this.otherImgList) // 获取其他图片
 		},
-		// 获取祭奠信息
+		// 获取祭典信息
 		getFest() {
 			return new Promise((resolve, reject) => {
 				wx.cloud.callFunction({
