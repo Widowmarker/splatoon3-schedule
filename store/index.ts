@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia'
 import { mapCloudList, mapIdList, weaponCloudList0, weaponIdList0, weaponCloudList1, weaponIdList1, festCloudList, festIdList, kingIdList, kingCloudList, otherCloudList, otherIdList } from './imgInfo'
 import GearData from './types'
+import { simplifyName } from '@/utils/common'
 export const mainStore = defineStore('main', {
 	state: () => {
 		return {
 			regularBattleSchedules: [] as any, // 涂地日程
 			anarchyBattleSchedules: [] as any, // 真格日程
-			xBattleSchedules: [] as any, // 真格日程
+			xBattleSchedules: [] as any, // X赛日程
 			salmonRunSchedules: [], // 打工日程
 			lang: {}, // 语言
 			fest: false, // 祭典
@@ -23,6 +24,18 @@ export const mainStore = defineStore('main', {
 			teamSchedules: null, // 团队竞赛
 			eventSchedules: [] as any, // 活动比赛
 			rareArr: [], // 熊武器
+			regularMapKey: [], // 涂地地图接口id
+			coopMapKey: [], // 打工地图接口id
+			weaponKey: [], // 武器接口id
+			coopLanguage: {
+				stages: {},
+			}, // 打工语言
+			regularLanguage: {
+				'league/events': {},
+				modes: {},
+				rules: {},
+				stages: {},
+			}, // 涂地语言
 		}
 	},
 	getters: {},
@@ -34,100 +47,181 @@ export const mainStore = defineStore('main', {
 				wx.cloud.callFunction({
 					name: 'myCloudFn',
 					data: {
-						type: 'schedules'
+						type: 'phases2'
 					}
 				}).then((res : any) => {
-					const { data: { regularSchedules, bankaraSchedules, coopGroupingSchedule, currentFest, festSchedules, xSchedules, eventSchedules } } = res.result.res ? JSON.parse(res.result.res) : JSON.parse(res.result)
-					this.regularBattleSchedules = regularSchedules.nodes
-					this.anarchyBattleSchedules = bankaraSchedules.nodes
-					this.xBattleSchedules = xSchedules.nodes
-					this.salmonRunSchedules = coopGroupingSchedule.regularSchedules.nodes
-					this.eventSchedules = eventSchedules.nodes
-
-					// 查看武器
-					// let t = this.salmonRunSchedules.flatMap(item => {
-					// 	return item.setting.weapons.flatMap(weapon => weapon.name)
-					// })
-					// console.log(t);
-
-					if (res.result.res) {
-						const phasesData = JSON.parse(res.result.resPhases)
-						const rareArr = phasesData.Normal.flatMap(item => item.rareWeapons.flat())
-						this.rareArr = rareArr
-					}
-
-					// 活动比赛是否举行中
-					this.eventSchedules.forEach((item : any) => {
-						item.timePeriods.forEach((ite : any) => {
-							const startTime = new Date(ite.startTime).getTime()
-							const endTime = new Date(ite.endTime).getTime()
-							const now = new Date().getTime()
-							if (startTime <= now && endTime >= now) {
-								item.eventHold = true
-							}
-						})
+					const { resVersus, resCoop, resResourcesVersus, resResourcesCoop, resEvent } = res.result
+					const versus = JSON.parse(resVersus)
+					// 涂地日程
+					this.regularBattleSchedules = versus.normal.map((item : any) => {
+						return {
+							stages: item.Regular.stages,
+							startTime: item.startTime,
+							endTime: item.endTime
+						}
 					})
-					// 用来查看图片id
-					// const obj = {}
-					// this.regularBattleSchedules.forEach(item => {
-					// 	item.regularMatchSetting.vsStages.forEach(ite => {
-					// 		if (!obj[ite.id]) {
-					// 			obj[ite.id] = ite.image.url
-					// 		}
-					// 	})
-					// })
 
-					// 祭典
-					if (currentFest) {
-						const startTime = new Date(currentFest.startTime).getTime()
-						const endTime = new Date(currentFest.endTime).getTime()
-						const now = new Date().getTime()
-
-						if (startTime <= now && endTime >= now) {
-							this.fest = true
-							this.currentFest = currentFest
+					// 真格日程
+					this.anarchyBattleSchedules = versus.normal.map((item : any) => {
+						const { Bankara, BankaraOpen } = item
+						return {
+							bankaraMatch: [
+								{ rule: Bankara.rule, stages: Bankara.stages, bankaraMode: 'CHALLENGE' },
+								{ rule: BankaraOpen.rule, stages: BankaraOpen.stages, bankaraMode: 'OPEN' },
+							],
+							startTime: item.startTime,
+							endTime: item.endTime
 						}
+					})
 
-						if (festSchedules.nodes.filter((v : any) => v.festMatchSettings).length > 0) {
-							const arr1 = regularSchedules.nodes.filter((item : any) => item.regularMatchSetting)
-							const arr2 = festSchedules.nodes.filter((item : any) => {
-								if (item.festMatchSettings) {
-									item.regularMatchSetting = item.festMatchSettings
-									return item
-								}
-							})
-							if (arr1[0] && new Date(arr1[0].startTime).getTime() > new Date(arr2[0].startTime).getTime()) {
-								this.regularBattleSchedules = arr2.concat(arr1)
-							} else {
-								this.regularBattleSchedules = arr1.concat(arr2)
-							}
+					// X赛日程
+					this.xBattleSchedules = versus.normal.map((item : any) => {
+						return {
+							stages: item.X.stages,
+							rule: item.X.rule,
+							startTime: item.startTime,
+							endTime: item.endTime
 						}
-					}
+					})
 
-					// 大型跑
-					if (coopGroupingSchedule.bigRunSchedules.nodes?.length > 0) {
-						this.bigRunSchedules = coopGroupingSchedule.bigRunSchedules.nodes[0]
-						// this.bigRunSchedules.source = true // 大型跑地图id不一样，让它直接加载原图
-						// this.bannerImage = coopGroupingSchedule.bannerImage.url
-						this.bannerImage = this.otherImgList.bigRun
+					const resResourcesVersusData = JSON.parse(resResourcesVersus)
+					for (let key in resResourcesVersusData.stages) {
+						resResourcesVersusData.stages[key] = simplifyName(resResourcesVersusData.stages[key])
 					}
+					this.regularMapKey = resResourcesVersusData.stages
 
-					// 团队竞赛
-					if (coopGroupingSchedule.teamContestSchedules.nodes?.length > 0) {
-						this.teamSchedules = coopGroupingSchedule.teamContestSchedules.nodes[0]
-						// this.bannerImage = coopGroupingSchedule.bannerImage.url
-						this.bannerImage = this.otherImgList.teamSchedules
+					// 打工日程
+					this.salmonRunSchedules = JSON.parse(resCoop).Normal
+
+					const resourcesCoopData = JSON.parse(resResourcesCoop)
+					for (let key in resourcesCoopData.stages) {
+						resourcesCoopData.stages[key] = simplifyName(resourcesCoopData.stages[key])
 					}
+					this.coopMapKey = resourcesCoopData.stages
+					for (let key in resourcesCoopData['weapons/main']) {
+						resourcesCoopData['weapons/main'][key] = simplifyName(resourcesCoopData['weapons/main'][key])
+					}
+					this.weaponKey = resourcesCoopData['weapons/main']
+					this.weaponKey[-1] = 'Random'
+					this.weaponKey[-2] = 'GoldRandom'
+
+					// 活动比赛
+					this.eventSchedules = JSON.parse(resEvent)
 
 					resolve(true)
-				}).catch((err) => {
+				}).catch(err => {
 					console.log(err);
 					reject(false)
 				})
+
+				// wx.cloud.callFunction({
+				// 	name: 'myCloudFn',
+				// 	data: {
+				// 		language: 'USen'
+				// 	}
+				// }).then((res : any) => {
+				// 	console.log(JSON.parse(res.result), '语言');
+
+				// })
+
+
+				// wx.cloud.callFunction({
+				// 	name: 'myCloudFn',
+				// 	data: {
+				// 		type: 'schedules'
+				// 	}
+				// }).then((res : any) => {
+				// 	const { data: { regularSchedules, bankaraSchedules, coopGroupingSchedule, currentFest, festSchedules, xSchedules, eventSchedules } } = res.result.res ? JSON.parse(res.result.res) : JSON.parse(res.result)
+				// 	this.regularBattleSchedules = regularSchedules.nodes
+				// 	this.anarchyBattleSchedules = bankaraSchedules.nodes
+				// 	this.xBattleSchedules = xSchedules.nodes
+				// 	this.salmonRunSchedules = coopGroupingSchedule.regularSchedules.nodes
+				// 	this.eventSchedules = eventSchedules.nodes
+
+				// 	// 查看武器
+				// 	// let t = this.salmonRunSchedules.flatMap(item => {
+				// 	// 	return item.setting.weapons.flatMap(weapon => weapon.name)
+				// 	// })
+				// 	// console.log(t);
+
+				// 	if (res.result.res) {
+				// 		const phasesData = JSON.parse(res.result.resPhases)
+				// 		const rareArr = phasesData.Normal.flatMap(item => item.rareWeapons.flat())
+				// 		this.rareArr = rareArr
+				// 	}
+
+				// 	// 活动比赛是否举行中
+				// 	this.eventSchedules.forEach((item : any) => {
+				// 		item.timePeriods.forEach((ite : any) => {
+				// 			const startTime = new Date(ite.startTime).getTime()
+				// 			const endTime = new Date(ite.endTime).getTime()
+				// 			const now = new Date().getTime()
+				// 			if (startTime <= now && endTime >= now) {
+				// 				item.eventHold = true
+				// 			}
+				// 		})
+				// 	})
+				// 	// 用来查看图片id
+				// 	// const obj = {}
+				// 	// this.regularBattleSchedules.forEach(item => {
+				// 	// 	item.regularMatchSetting.vsStages.forEach(ite => {
+				// 	// 		if (!obj[ite.id]) {
+				// 	// 			obj[ite.id] = ite.image.url
+				// 	// 		}
+				// 	// 	})
+				// 	// })
+
+				// 	// 祭典
+				// 	if (currentFest) {
+				// 		const startTime = new Date(currentFest.startTime).getTime()
+				// 		const endTime = new Date(currentFest.endTime).getTime()
+				// 		const now = new Date().getTime()
+
+				// 		if (startTime <= now && endTime >= now) {
+				// 			this.fest = true
+				// 			this.currentFest = currentFest
+				// 		}
+
+				// 		if (festSchedules.nodes.filter((v : any) => v.festMatchSettings).length > 0) {
+				// 			const arr1 = regularSchedules.nodes.filter((item : any) => item.regularMatchSetting)
+				// 			const arr2 = festSchedules.nodes.filter((item : any) => {
+				// 				if (item.festMatchSettings) {
+				// 					item.regularMatchSetting = item.festMatchSettings
+				// 					return item
+				// 				}
+				// 			})
+				// 			if (arr1[0] && new Date(arr1[0].startTime).getTime() > new Date(arr2[0].startTime).getTime()) {
+				// 				this.regularBattleSchedules = arr2.concat(arr1)
+				// 			} else {
+				// 				this.regularBattleSchedules = arr1.concat(arr2)
+				// 			}
+				// 		}
+				// 	}
+
+				// 	// 大型跑
+				// 	if (coopGroupingSchedule.bigRunSchedules.nodes?.length > 0) {
+				// 		this.bigRunSchedules = coopGroupingSchedule.bigRunSchedules.nodes[0]
+				// 		// this.bigRunSchedules.source = true // 大型跑地图id不一样，让它直接加载原图
+				// 		// this.bannerImage = coopGroupingSchedule.bannerImage.url
+				// 		this.bannerImage = this.otherImgList.bigRun
+				// 	}
+
+				// 	// 团队竞赛
+				// 	if (coopGroupingSchedule.teamContestSchedules.nodes?.length > 0) {
+				// 		this.teamSchedules = coopGroupingSchedule.teamContestSchedules.nodes[0]
+				// 		// this.bannerImage = coopGroupingSchedule.bannerImage.url
+				// 		this.bannerImage = this.otherImgList.teamSchedules
+				// 	}
+
+				// 	resolve(true)
+				// }).catch((err) => {
+				// 	console.log(err);
+				// 	reject(false)
+				// })
 			})
 		},
 		// 获取语言
-		getLanguage(language : string = 'zh-CN') {
+		getLanguage(language : string = 'CNzh') {
 			return new Promise((resolve, reject) => {
 				wx.cloud.init()
 				wx.cloud.callFunction({
@@ -136,33 +230,56 @@ export const mainStore = defineStore('main', {
 						language
 					}
 				}).then((res : any) => {
-					const { stages, rules, gear, brands, powers, festivals, /*weapons,*/ events } = JSON.parse(res.result)
-					const all = { ...stages, ...rules, ...gear, ...brands, ...powers, ...festivals }
-					for (let key in all) {
-						this.lang[key] = all[key].name ?? all[key]
-					}
-					for (let key in events) {
-						this.lang[key] = events[key]
+					this.regularLanguage = JSON.parse(res.result.resResourcesVersus)
+					this.coopLanguage = JSON.parse(res.result.resResourcesCoop)
+
+					const leagueEvents = this.regularLanguage['league/events']
+					for (let key in leagueEvents) {
+						leagueEvents[key].description = leagueEvents[key].description.replaceAll(/\n/gi, '<br>')
 					}
 					resolve(true)
-
-					// 用来查看图片id
-					// let weaponArr = {}
-					// for (let k in weapons) {
-					// 	if (weaponArr[weapons[k].name]) {
-					// 		weaponArr[weapons[k].name].id.push(k)
-					// 	} else {
-					// 		weaponArr[weapons[k].name] = {
-					// 			id: [k]
-					// 		}
-					// 	}
-					// }
-					// console.log(weaponArr, 'weaponArr');
 				}).catch(() => {
 					reject(false)
 				})
 			})
 		},
+		// 获取语言
+		// getLanguage(language : string = 'zh-CN') {
+		// 	return new Promise((resolve, reject) => {
+		// 		wx.cloud.init()
+		// 		wx.cloud.callFunction({
+		// 			name: 'myCloudFn',
+		// 			data: {
+		// 				language
+		// 			}
+		// 		}).then((res : any) => {
+		// 			const { stages, rules, gear, brands, powers, festivals, /*weapons,*/ events } = JSON.parse(res.result)
+		// 			const all = { ...stages, ...rules, ...gear, ...brands, ...powers, ...festivals }
+		// 			for (let key in all) {
+		// 				this.lang[key] = all[key].name ?? all[key]
+		// 			}
+		// 			for (let key in events) {
+		// 				this.lang[key] = events[key]
+		// 			}
+		// 			resolve(true)
+
+		// 			// 用来查看图片id
+		// 			// let weaponArr = {}
+		// 			// for (let k in weapons) {
+		// 			// 	if (weaponArr[weapons[k].name]) {
+		// 			// 		weaponArr[weapons[k].name].id.push(k)
+		// 			// 	} else {
+		// 			// 		weaponArr[weapons[k].name] = {
+		// 			// 			id: [k]
+		// 			// 		}
+		// 			// 	}
+		// 			// }
+		// 			// console.log(weaponArr, 'weaponArr');
+		// 		}).catch(() => {
+		// 			reject(false)
+		// 		})
+		// 	})
+		// },
 		// 获取商城
 		getGear() {
 			return new Promise((resolve, reject) => {

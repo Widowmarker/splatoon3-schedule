@@ -26,13 +26,15 @@
 				})
 			})
 			// 获取语言
-			uni.getStorage({
-				key: 'language',
-				fail() {},
-				complete(res) {
-					store.getLanguage(res.data ?? 'zh-CN')
-				}
-			})
+			// uni.getStorage({
+			// 	key: 'language',
+			// 	fail() {},
+			// 	complete(res) {
+			// 		console.log(res,'本地缓存');
+			// 		store.getLanguage(res.data ?? 'CNzh')
+			// 	}
+			// })
+			store.getLanguage()
 			store.getCloudImgList()
 		},
 		onShow: function() {

@@ -2,33 +2,34 @@
 	<view class="bankaraSchedules splatoon">
 		<view class="time-bar"></view>
 		<view class="container" v-if="!fest">
-			<view class="block" v-for="item in list" :key="item?.startTime">
-				<template v-if="item">
+			<view class="block" v-for="item in list" :key="item?.startTime"
+				:class="!item.bankaraMatchSettings && 'empty'">
+				<template v-if="item.bankaraMatchSettings">
 					<!-- 时间 -->
 					<view class="time state">{{handleTime(item.startTime)}}</view>
-					<view class="challenge-and-open" v-for="(anarchy,idx) in item.bankaraMatch" :key="idx">
+					<view class="challenge-and-open" v-for="(anarchy,idx) in item.bankaraMatchSettings" :key="idx">
 						<!-- 真格模式 -->
 						<view class="model">
-							<modelIcon :modelType="anarchy.rule.toLocaleUpperCase()"></modelIcon>
-							{{regularLanguage.rules[anarchy.rule]}}
+							<modelIcon :modelType="anarchy.vsRule.rule"></modelIcon>
+							{{lang[anarchy.vsRule.id]}}
 							<text class="splatoon2">{{typeObj[anarchy.bankaraMode]}}</text>
 						</view>
 						<!-- 地图 -->
-						<coopStage :leftUrl="anarchy.stages[0]" :leftName="anarchy.stages[0]"
-							:rightUrl="anarchy.stages[1]" :rightName="anarchy.stages[1]">
+						<coopStage :leftUrl="anarchy.vsStages[0].image.url" :leftName="anarchy.vsStages[0].id"
+							:rightUrl="anarchy.vsStages[1].image.url" :rightName="anarchy.vsStages[1].id">
 						</coopStage>
 					</view>
 				</template>
 			</view>
 			<view class="more" v-if="!isMore && list.length" @click="isMore = true">查看更多</view>
 		</view>
-		<!-- <view class="fest-box splatoon2" v-else>
-			<view>祭典比赛举行中！</view>
+		<view class="fest-box splatoon2" v-else>
+			<view>祭奠比赛举行中！</view>
 			<view class="fest-title">{{currentFest.title}}</view>
 			<view class="title">三色夺宝攻击</view>
 			<image :src="currentFest.tricolorStage.image.url" mode=""></image>
 			<view>{{lang[currentFest.tricolorStage.id]}}</view>
-		</view> -->
+		</view>
 		<view v-if="!fest" class="xBtn" @click="toXBattle">
 			<image src="../../static/x.svg" mode=""></image>X比赛
 		</view>
@@ -62,8 +63,7 @@
 		anarchyBattleSchedules,
 		lang,
 		fest,
-		currentFest,
-		regularLanguage
+		currentFest
 	} = storeToRefs(store)
 
 	const typeObj = {
@@ -156,7 +156,6 @@
 							background-color: #5a3cf4;
 							padding: 0 10rpx;
 							line-height: 40rpx;
-							border-radius: 8rpx;
 						}
 					}
 				}

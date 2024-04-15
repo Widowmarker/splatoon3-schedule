@@ -64,9 +64,9 @@
 	} from '@dcloudio/uni-app'
 
 	const store = mainStore()
-	store.getGear().then(() => {
-		uni.hideLoading()
-	})
+	// store.getGear().then(() => {
+	// 	uni.hideLoading()
+	// })
 	const {
 		gear,
 		lang
@@ -91,10 +91,10 @@
 
 	onShow(() => {
 		if (!gear.value.pickupBrand) {
-			uni.showLoading({
-				title: '商城加载中...',
-				mask: true
-			})
+			// uni.showLoading({
+			// 	title: '商城加载中...',
+			// 	mask: true
+			// })
 		}
 	})
 </script>

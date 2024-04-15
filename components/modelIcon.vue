@@ -33,7 +33,7 @@
 				return asari;
 			case 'GOAL': // Rainmaker 抢鱼
 				return hoko;
-			case 'LOFT': // Tower Control 推塔
+			case 'LIFT': // Tower Control 推塔 LOFT
 				return yagura;
 			case 'COOP': // 打工
 				return coop;

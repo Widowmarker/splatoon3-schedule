@@ -7,6 +7,7 @@ const mapCloudList = [
 	cloudId + '/zpijpg50/MaroonersBay.jpg',
 	cloudId + '/zpijpg50/JamminSalmonJunction.jpg',
 	cloudId + '/zpijpg50/SalmonidSmokeyard.jpg',
+	cloudId + '/zpijpg50/BonerattleArena.jpg',
 	cloudId + '/zpijpg50/ScorchGorge.jpg',
 	cloudId + '/zpijpg50/HammerheadBridge.jpg',
 	cloudId + "/zpijpg50/MuseumdAlfonsino.jpg",
@@ -29,37 +30,73 @@ const mapCloudList = [
 	cloudId + '/zpijpg50/CrablegCapital.jpg',
 	cloudId + '/zpijpg50/BluefinDepot.jpg',
 	cloudId + '/zpijpg50/RoboROM-en.jpg',
+	cloudId + '/zpijpg50/MarlinAirport.jpg',
 ]
 
+// const mapIdList = [
+// 	'Q29vcFN0YWdlLTI=', // 新卷堡
+// 	'Q29vcFN0YWdlLTc=', // 发电站
+// 	'Q29vcFN0YWdlLTE=', // 大坝
+// 	'Q29vcFN0YWdlLTY=', // 破船
+// 	'Q29vcFN0YWdlLTg=', // 生筋子系统交流道遗址
+// 	'Q29vcFN0YWdlLTQ=', // 鲑鱼岛
+// 	'Q29vcFN0YWdlLTk=', // 鲑鱼心脏竞技场
+// 	'VnNTdGFnZS0x', // 温泉花大峡谷
+// 	'VnNTdGFnZS0xMA==', // 真鲭跨海大桥
+// 	'VnNTdGFnZS0xMQ==', // 金眼鲷美术馆
+// 	'VnNTdGFnZS0xMg==', // 鬼头刀SPA度假区
+// 	'VnNTdGFnZS0xMw==', // 海女美术大学
+// 	'VnNTdGFnZS0xNA==', // 鲟鱼造船厂
+// 	'VnNTdGFnZS0xNQ==', // 座头购物中心
+// 	'VnNTdGFnZS0xNg==', // 醋饭海洋世界
+// 	'VnNTdGFnZS0y', // 鳗鲶区
+// 	'VnNTdGFnZS0z', // 烟管鱼市场
+// 	'VnNTdGFnZS00', // 竹蛏疏洪道
+// 	'VnNTdGFnZS02', // 鱼肉碎金属
+// 	'VnNTdGFnZS03', // 臭鱼干温泉
+// 	'VnNTdGFnZS05', // 比目鱼住宅区
+// 	'VnNTdGFnZS0xOA==', // 鬼蝠鲼玛利亚号
+// 	'VnNTdGFnZS01', // 鱼霸遗迹
+// 	'VnNTdGFnZS04', // 塔拉波特购物公园
+// 	'VnNTdGFnZS0xNw==', // 昆布赛道
+// 	'VnNTdGFnZS0yMA==', // 大比目鱼海运中心
+// 	'VnNTdGFnZS0xOQ==', // 高脚经济特区
+// 	'VnNTdGFnZS0yMg==', // 葱鲔鱼煤矿场
+// 	'VnNTdGFnZS0yMQ==', // 贝见亭
+// 	"VnNTdGFnZS0yMw==", // 旗鱼机场
+// ]
+
 const mapIdList = [
-	'Q29vcFN0YWdlLTI=', // 新卷堡
-	'Q29vcFN0YWdlLTc=', // 发电站
-	'Q29vcFN0YWdlLTE=', // 大坝
-	'Q29vcFN0YWdlLTY=', // 破船
-	'Q29vcFN0YWdlLTg=', // 生筋子系统交流道遗址
-	'Q29vcFN0YWdlLTQ=', // 鲑鱼岛
-	'VnNTdGFnZS0x', // 温泉花大峡谷
-	'VnNTdGFnZS0xMA==', // 真鲭跨海大桥
-	'VnNTdGFnZS0xMQ==', // 金眼鲷美术馆
-	'VnNTdGFnZS0xMg==', // 鬼头刀SPA度假区
-	'VnNTdGFnZS0xMw==', // 海女美术大学
-	'VnNTdGFnZS0xNA==', // 鲟鱼造船厂
-	'VnNTdGFnZS0xNQ==', // 座头购物中心
-	'VnNTdGFnZS0xNg==', // 醋饭海洋世界
-	'VnNTdGFnZS0y', // 鳗鲶区
-	'VnNTdGFnZS0z', // 烟管鱼市场
-	'VnNTdGFnZS00', // 竹蛏疏洪道
-	'VnNTdGFnZS02', // 鱼肉碎金属
-	'VnNTdGFnZS03', // 臭鱼干温泉
-	'VnNTdGFnZS05', // 比目鱼住宅区
-	'VnNTdGFnZS0xOA==', // 鬼蝠鲼玛利亚号
-	'VnNTdGFnZS01', // 鱼霸遗迹
-	'VnNTdGFnZS04', // 塔拉波特购物公园
-	'VnNTdGFnZS0xNw==', // 昆布赛道
-	'VnNTdGFnZS0yMA==', // 大比目鱼海运中心
-	'VnNTdGFnZS0xOQ==', // 高脚经济特区
-	'VnNTdGFnZS0yMg==', // 葱鲔鱼煤矿场
-	'VnNTdGFnZS0yMQ==', // 贝见亭
+	'SockeyeStation', // 新卷堡
+	'GoneFissionHydroplant', // 发电站
+	'SpawningGrounds', // 大坝
+	'MaroonersBay', // 破船
+	'JamminSalmonJunction', // 生筋子系统交流道遗址
+	'SalmonidSmokeyard', // 鲑鱼岛
+	'BonerattleArena', // 鲑鱼心脏竞技场
+	'ScorchGorge', // 温泉花大峡谷
+	'HammerheadBridge', // 真鲭跨海大桥
+	"MuseumdAlfonsino", // 金眼鲷美术馆
+	'MahiMahiResort', // 鬼头刀SPA度假区
+	'InkblotArtAcademy', // 海女美术大学
+	'SturgeonShipyard', // 鲟鱼造船厂
+	'MakoMart', // 座头购物中心
+	'WahooWorld', // 醋饭海洋世界
+	'EeltailAlley', // 鳗鲶区
+	'HagglefishMarket', // 烟管鱼市场
+	'UndertowSpillway', // 竹蛏疏洪道
+	'MincemeatMetalworks', // 鱼肉碎金属
+	'BrinewaterSprings', // 臭鱼干温泉
+	'FlounderHeights', // 比目鱼住宅区
+	'MantaMaria', // 鬼蝠鲼玛利亚号
+	'UmamiRuins', // 鱼霸遗迹
+	'BarnacleDime', // 塔拉波特购物公园
+	'HumpbackPumpTrack', // 昆布赛道
+	'ShipshapeCargoCo', // 大比目鱼海运中心
+	'CrablegCapital', // 高脚经济特区
+	'BluefinDepot', // 葱鲔鱼煤矿场
+	'RoboROMen', // 贝见亭
+	'MarlinAirport', // 旗鱼机场
 ]
 
 const weaponCloudList0 = [
@@ -127,6 +164,8 @@ const weaponCloudList1 = [
 	cloudId + "/weapon/SBLAST92.png",
 	cloudId + "/weapon/DreadWringer.png",
 	cloudId + "/weapon/HeavyEditSplatling.png",
+	cloudId + "/weapon/DouserDualiesFF.png",
+	cloudId + "/weapon/RecycledBrella24MkI.png",
 	cloudId + "/weapon/Blaster_Bear_Coop.webp", // 熊泡 20900
 	cloudId + "/weapon/Charger_Bear_Coop.webp", // 熊狙 22900
 	cloudId + "/weapon/Maneuver_Bear_Coop.webp", // 熊双 25900
@@ -202,6 +241,8 @@ const weaponIdList1 = [
 	"SBLAST92",
 	"DreadWringer",
 	"HeavyEditSplatling",
+	"DouserDualiesFF",
+	"RecycledBrella24MkI",
 	"20900",
 	"22900",
 	"25900",
@@ -271,7 +312,7 @@ const festIdList = [
 	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNjpBbHBoYQ==", // 力量
 	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNjpCcmF2bw==", // 智慧
 	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNjpDaGFybGll", // 勇气
-    "RmVzdC1FVTpKVUVBLTAwMDA3", // 说到冰淇淋你会想起？
+	"RmVzdC1FVTpKVUVBLTAwMDA3", // 说到冰淇淋你会想起？
 	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNzpBbHBoYQ==", // 香草
 	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNzpCcmF2bw==", // 草莓
 	"RmVzdFRlYW0tRVU6SlVFQS0wMDAwNzpDaGFybGll", // 薄荷巧克力
@@ -290,9 +331,9 @@ const kingCloudList = [
 ]
 
 const kingIdList = [
-	'Cohozuna', // 横纲
-	'Horrorboros', // 辰龙
-	'Megalodontia', // 巨颚
+	'SakelienGiant', // 横纲 Cohozuna
+	'SakeRope', // 辰龙 Horrorboros
+	'SakeJaw', // 巨颚 Megalodontia
 ]
 
 const otherCloudList = [

@@ -9,7 +9,7 @@
 				<view>{{range[index].value}}</view>
 			</picker>
 		</view>
-		<view class="row" @click="toFest">祭典</view>
+		<!-- <view class="row" @click="toFest">祭典</view> -->
 		<view class="row" @click="toAbout">关于</view>
 		<!-- <view class="row" @click="toSupport">支持作者</view> -->
 	</view>
@@ -27,59 +27,59 @@
 	const index = ref(0)
 	const range = [{
 			value: '🇨🇳 中文(简体)',
-			key: 'zh-CN'
+			key: 'CNzh' // key: 'zh-CN'
 		},
 		{
 			value: '🇨🇳 中文(台湾)',
-			key: 'zh-TW'
+			key: 'TWzh' // key: 'zh-TW'
 		},
 		{
-			value: '🇩🇪 Deutsch)',
-			key: 'de-DE'
+			value: '🇩🇪 Deutsch',
+			key: 'EUde' // key: 'de-DE'
 		},
 		{
 			value: '🇺🇸 English (US)',
-			key: 'en-US'
+			key: 'USen' // key: 'en-US'
 		},
 		{
 			value: '🇬🇧 English (GB)',
-			key: 'en-GB'
+			key: 'EUen' // key: 'en-GB'
 		},
 		{
 			value: '🇪🇸 Español (ES)',
-			key: 'es-ES'
+			key: 'EUes' // key: 'es-ES'
 		},
 		{
 			value: '🇲🇽 Español (MX)',
-			key: 'es-MX'
+			key: 'USes' // key: 'es-MX'
 		},
 		{
 			value: '🇫🇷 Français (FR)',
-			key: 'fr-FR'
+			key: 'EUfr' // key: 'fr-FR'
 		},
 		{
 			value: '🇨🇦 Français (CA)',
-			key: 'fr-CA'
+			key: 'EUfr' // key: 'fr-CA'
 		},
 		{
 			value: '🇮🇹 Italiano',
-			key: 'it-IT'
+			key: 'EUit' // key: 'it-IT'
 		},
 		{
 			value: '🇯🇵 日本語',
-			key: 'ja-JP'
+			key: 'JPja' // key: 'ja-JP'
 		},
 		{
 			value: '🇰🇷 한국어',
-			key: 'ko-KR'
+			key: 'KRko' // key: 'ko-KR'
 		},
 		{
 			value: '🇳🇱 Nederlands',
-			key: 'nl-NL'
+			key: 'EUnl' // key: 'nl-NL'
 		},
 		{
 			value: '🇷🇺 Русский',
-			key: 'ru-RU'
+			key: 'EUru' // key: 'ru-RU'
 		}
 	]
 
@@ -107,7 +107,7 @@
 		})
 	}
 	
-	// 跳转到祭奠页
+	// 跳转到祭典页
 	const toFest = () => {
 		uni.navigateTo({
 			url:'./fest'
@@ -122,11 +122,11 @@
 	}
 
 	// 跳转到支持页
-	const toSupport = () => {
-		uni.navigateTo({
-			url: './support'
-		})
-	}
+	// const toSupport = () => {
+	// 	uni.navigateTo({
+	// 		url: './support'
+	// 	})
+	// }
 
 	onMounted(() => {
 		uni.getStorage({

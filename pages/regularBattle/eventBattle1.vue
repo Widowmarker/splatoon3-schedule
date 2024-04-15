@@ -1,8 +1,8 @@
 <template>
 	<view class="eventBattle">
 		<view class="block" v-for="(item,index) in eventSchedules" :key="index">
-			<view class="title">{{regularLanguage['league/events'][item.eventType]?.title}}</view>
-			<view class="desc">{{regularLanguage['league/events'][item.eventType]?.subtitle}}</view>
+			<view class="title">{{lang[item.leagueMatchSetting.leagueMatchEvent.id]?.name}}</view>
+			<view class="desc">{{lang[item.leagueMatchSetting.leagueMatchEvent.id].desc}}</view>
 			<view class="stageAndTime">
 				<view class="today-pickup-brand" v-if="item.eventHold">
 					<view class="today-pickup-box">
@@ -14,18 +14,20 @@
 					</view>
 				</view>
 				<view class="">
-					<modelIcon :modelType="item.rule.toLocaleUpperCase()"></modelIcon>
-					{{regularLanguage.rules[item.rule]}}
+					<modelIcon :modelType="item.leagueMatchSetting.vsRule.rule"></modelIcon>
+					{{lang[item.leagueMatchSetting.vsRule.id]}}
 				</view>
-				<coopStage :leftUrl="item.stages[0]" :leftName="item.stages[0]" :rightUrl="item.stages[1]"
-					:rightName="item.stages[1]"></coopStage>
+				<coopStage :leftUrl="item.leagueMatchSetting.vsStages[0].image.url"
+					:leftName="item.leagueMatchSetting.vsStages[0].id"
+					:rightUrl="item.leagueMatchSetting.vsStages[1].image.url"
+					:rightName="item.leagueMatchSetting.vsStages[1].id"></coopStage>
 				<view class="timePeriods">
-					<view class="timePeriod splatoon2" v-for="(time,idx) in item.phases" :key="idx">
+					<view class="timePeriod splatoon2" v-for="(time,idx) in item.timePeriods" :key="idx">
 						{{handleTimeDate(time.startTime)}} - {{handleTime(time.endTime)}}
 					</view>
 				</view>
 			</view>
-			<view class="regulation" v-html="regularLanguage['league/events'][item.eventType]?.description"></view>
+			<view class="regulation" v-html="lang[item.leagueMatchSetting.leagueMatchEvent.id].regulation"></view>
 		</view>
 	</view>
 </template>
@@ -41,7 +43,7 @@
 	import modelIcon from "../../components/modelIcon.vue"
 	import { handleTime, handleTimeDate } from '../../utils/common'
 	const store = mainStore()
-	const { eventSchedules, lang, regularLanguage } = storeToRefs(store)
+	const { eventSchedules, lang } = storeToRefs(store)
 </script>
 
 <style lang="scss" scoped>

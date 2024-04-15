@@ -2,17 +2,17 @@
 	<view class="xBattle splatoon">
 		<view class="time-bar"></view>
 		<view class="container">
-			<view class="block" v-for="item in xBattleSchedules" :key="item?.startTime">
-				<template v-if="item">
+			<view class="block" v-for="item in xBattleSchedules" :key="item?.startTime" :class="!item.xMatchSetting && 'empty'">
+				<template v-if="item.xMatchSetting">
 					<view class="time state">{{handleTime(item.startTime)}}</view>
 					<view class="model">
-						<modelIcon :modelType="item.rule.toLocaleUpperCase()"></modelIcon>
-						{{regularLanguage.rules[item.rule]}}
+						<modelIcon :modelType="item.xMatchSetting.vsRule.rule"></modelIcon>
+						{{lang[item.xMatchSetting.vsRule.id]}}
 					</view>
-					<coopStage :leftUrl="item.stages[0]"
-						:leftName="item.stages[0]"
-						:rightUrl="item.stages[1]"
-						:rightName="item.stages[1]"></coopStage>
+					<coopStage :leftUrl="item.xMatchSetting.vsStages[0].image.url"
+						:leftName="item.xMatchSetting.vsStages[0].id"
+						:rightUrl="item.xMatchSetting.vsStages[1].image.url"
+						:rightName="item.xMatchSetting.vsStages[1].id"></coopStage>
 				</template>
 			</view>
 		</view>
@@ -39,8 +39,7 @@
 	const store = mainStore()
 	const {
 		xBattleSchedules,
-		lang,
-		regularLanguage
+		lang
 	} = storeToRefs(store)
 
 	// 下拉刷新
@@ -68,7 +67,7 @@
 			position: absolute;
 			width: 20rpx;
 			height: 100%;
-			background-color: #5dc796;
+			background-color: #81913d;
 		}
 
 		.container {

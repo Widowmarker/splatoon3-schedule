@@ -8,34 +8,36 @@
 				{{handleTime(scheduleInfo?.endTime)}}</text>
 			<!-- <image :src="kingImgList[scheduleInfo.__splatoon3ink_king_salmonid_guess] " mode="" class="king"></image> -->
 		</view>
-		<view class="info">
+		<view class="info" :class="{hasRare:hasRare}">
 			<!-- 地图 -->
 			<view class="map-box">
-				<image v-if="!mapImgList[coopMapKey[scheduleInfo.stage]]" :src="scheduleInfo" mode="aspectFill"
-					class="map">
+				<image v-if="!mapImgList[scheduleInfo.setting.coopStage.id] || scheduleInfo.source"
+					:src="scheduleInfo.setting.coopStage.image.url" mode="aspectFill" class="map">
 				</image>
-				<image v-else :src="mapImgList[coopMapKey[scheduleInfo.stage]]"
+				<image v-else :src="mapImgList[scheduleInfo.setting.coopStage.id]"
 					@error="errorHandle($event,scheduleInfo)" mode="" class="map"></image>
-				<text class="splatoon2">{{coopLanguage.stages[scheduleInfo.stage]}}</text>
+				<text class="splatoon2">{{lang[scheduleInfo.setting.coopStage.id]}}</text>
 			</view>
 			<!-- 武器 -->
 			<view class="weapons-box">
-				<image :src="kingImgList[scheduleInfo.bigBoss] " mode="" class="king">
+				<!-- <text>提供武器</text> -->
+				<image :src="kingImgList[scheduleInfo.__splatoon3ink_king_salmonid_guess] " mode="" class="king">
 				</image>
 				<view class="weapons">
-					<view class="" v-for="(weapon, idx) in scheduleInfo.weapons" :key="idx">
-						<image v-if="!weaponImgList[weaponKey[weapon]]" :src="weapon" mode=""></image>
-						<image v-else :src="weaponImgList[weaponKey[weapon]]" mode=""
+					<view class="" v-for="weapon in scheduleInfo.setting.weapons" :key="scheduleInfo.__splatoon3ink_id">
+						<image v-if="!weaponImgList[simplifyName(weapon.name)] || weapon.source" :src="weapon.image.url"
+							mode=""></image>
+						<image v-else :src="weaponImgList[simplifyName(weapon.name, weapon.image.url)]" mode=""
 							@error="errorHandle($event,weapon)"></image>
 					</view>
 				</view>
 			</view>
 			<!-- 熊武器 -->
-			<!-- <view class="rare-weapons-box">
+			<view class="rare-weapons-box" v-if="hasRare">
 				<view class="weapon" v-for="item in filterRareArr" :key="item.id" :class="{active: item.active}">
 					<image :src="weaponImgList[item.id + '']" mode=""></image>
 				</view>
-			</view> -->
+			</view>
 		</view>
 	</view>
 </template>
@@ -48,6 +50,7 @@
 	import {
 		handleTime,
 		handleTimeDate,
+		simplifyName
 	} from '../../utils/common'
 	import {
 		mainStore
@@ -76,10 +79,7 @@
 		mapImgList,
 		weaponImgList,
 		kingImgList,
-		rareArr,
-		coopMapKey,
-		weaponKey,
-		coopLanguage
+		rareArr
 	} = storeToRefs(store)
 
 	// 发生错误时用原图地址
@@ -97,7 +97,7 @@
 		})
 	})
 	// 是否有问号武器且是否已知熊武器
-	// const hasRare = computed(() => props.scheduleInfo.setting.weapons.some(v => v.name === 'Random') && rareArr.value.length)
+	const hasRare = computed(() => props.scheduleInfo.setting.weapons.some(v => v.name === 'Random') && rareArr.value.length)
 </script>
 
 <style lang="scss" scoped>

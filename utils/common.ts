@@ -57,7 +57,7 @@ const simplifyName = (name : string, url ?: string) => {
 			return 'GoldRandom'
 		}
 	}
-	return name.replaceAll(' ', '').replaceAll('\'', '').replaceAll('-', '').replaceAll('.', '')
+	return name.replaceAll(' ', '').replaceAll('\'', '').replaceAll('-', '').replaceAll('.', '').replaceAll('&', '')
 }
 
 export { handleTime, handleTimeDate, handleHours, surplusTime, simplifyName }

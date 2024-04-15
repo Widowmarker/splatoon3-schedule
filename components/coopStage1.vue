@@ -2,15 +2,14 @@
 	<!-- 场地组件 -->
 	<view class="coopStage">
 		<view class="stage-box image-left">
-			<image v-if="!mapImgList[regularMapKey[leftName]] || leftSource" :src="leftUrl" mode="aspectFill"></image>
-			<image v-else :src="mapImgList[regularMapKey[leftName]]" @error="leftError" mode=""></image>
-			<text class="splatoon2">{{regularLanguage.stages[leftName]}}</text>
+			<image v-if="!mapImgList[leftName] || leftSource" :src="leftUrl" mode="aspectFill"></image>
+			<image v-else :src="mapImgList[leftName]" @error="leftError" mode=""></image>
+			<text class="splatoon2">{{lang[leftName]}}</text>
 		</view>
 		<view class="stage-box image-right">
-			<image v-if="!mapImgList[regularMapKey[rightName]] || rightSource" :src="rightUrl" mode="aspectFill">
-			</image>
-			<image v-else :src="mapImgList[regularMapKey[rightName]]" @error="rightError" mode=""></image>
-			<text class="splatoon2">{{regularLanguage.stages[rightName]}}</text>
+			<image v-if="!mapImgList[rightName] || rightSource" :src="rightUrl" mode="aspectFill"></image>
+			<image v-else :src="mapImgList[rightName]" @error="rightError" mode=""></image>
+			<text class="splatoon2">{{lang[rightName]}}</text>
 		</view>
 	</view>
 </template>
@@ -29,25 +28,23 @@
 	const props = defineProps({
 		// 图片地址
 		leftUrl: {
-			type: [String, Number],
+			type: String,
 		},
 		// 名称id
 		leftName: {
-			type: [String, Number],
+			type: String,
 		},
 		rightUrl: {
-			type: [String, Number],
+			type: String,
 		},
 		rightName: {
-			type: [String, Number],
+			type: String,
 		}
 	})
 	const store = mainStore()
 	const {
 		lang,
-		mapImgList,
-		regularMapKey,
-		regularLanguage
+		mapImgList
 	} = storeToRefs(store)
 
 	// 是否使用原地址

@@ -1,85 +1,78 @@
 <template>
-	<view class="bankaraSchedules splatoon">
+	<view class="regularBattle splatoon">
 		<view class="time-bar"></view>
-		<view class="container" v-if="!fest">
-			<view class="block" v-for="item in list" :key="item?.startTime">
-				<template v-if="item">
-					<!-- 时间 -->
+		<view class="container">
+			<view class="block" v-for="item in list" :key="item?.startTime"
+				:class="[!item.regularMatchSetting && 'empty', item.regularMatchSetting.length && 'fest']">
+				<template v-if="!item.regularMatchSetting.length">
 					<view class="time state">{{handleTime(item.startTime)}}</view>
-					<view class="challenge-and-open" v-for="(anarchy,idx) in item.bankaraMatch" :key="idx">
-						<!-- 真格模式 -->
+					<coopStage :leftUrl="item.regularMatchSetting.vsStages[0].image.url"
+						:leftName="item.regularMatchSetting.vsStages[0].id"
+						:rightUrl="item.regularMatchSetting.vsStages[1].image.url"
+						:rightName="item.regularMatchSetting.vsStages[1].id"></coopStage>
+				</template>
+				<template v-else>
+					<!-- 祭典日程 -->
+					<view class="time state">{{handleTime(item.startTime)}}</view>
+					<view class="challenge-and-open" v-for="(anarchy,idx) in item.regularMatchSetting" :key="idx">
 						<view class="model">
-							<modelIcon :modelType="anarchy.rule.toLocaleUpperCase()"></modelIcon>
-							{{regularLanguage.rules[anarchy.rule]}}
-							<text class="splatoon2">{{typeObj[anarchy.bankaraMode]}}</text>
+							祭典比赛
+							<text class="splatoon2">{{typeObj[anarchy.festMode]}}</text>
 						</view>
 						<!-- 地图 -->
-						<coopStage :leftUrl="anarchy.stages[0]" :leftName="anarchy.stages[0]"
-							:rightUrl="anarchy.stages[1]" :rightName="anarchy.stages[1]">
+						<coopStage :leftUrl="anarchy.vsStages[0].image.url" :leftName="anarchy.vsStages[0].id"
+							:rightUrl="anarchy.vsStages[1].image.url" :rightName="anarchy.vsStages[1].id">
 						</coopStage>
 					</view>
 				</template>
 			</view>
 			<view class="more" v-if="!isMore && list.length" @click="isMore = true">查看更多</view>
 		</view>
-		<!-- <view class="fest-box splatoon2" v-else>
-			<view>祭典比赛举行中！</view>
-			<view class="fest-title">{{currentFest.title}}</view>
-			<view class="title">三色夺宝攻击</view>
-			<image :src="currentFest.tricolorStage.image.url" mode=""></image>
-			<view>{{lang[currentFest.tricolorStage.id]}}</view>
-		</view> -->
-		<view v-if="!fest" class="xBtn" @click="toXBattle">
-			<image src="../../static/x.svg" mode=""></image>X比赛
+		<view v-if="!fest" class="eventBtn" @click="toEventBattle">
+			<image src="../../static/event.svg" mode=""></image>活动比赛
 		</view>
 	</view>
 </template>
 
 <script setup lang="ts">
-	import {
-		computed,
-		ref
-	} from "vue";
+	import coopStage from '../../components/coopStage.vue'
 	import {
 		storeToRefs
 	} from 'pinia';
 	import {
 		mainStore
-	} from '../../store';
+	} from "../../store"
 	import {
 		handleTime
 	} from "../../utils/common"
 	import {
+		computed,
+		ref
+	} from 'vue';
+	import {
 		onPullDownRefresh,
 		onShareAppMessage
 	} from '@dcloudio/uni-app'
-	import coopStage from "../../components/coopStage.vue"
-	import modelIcon from "../../components/modelIcon.vue"
-
 
 	const store = mainStore()
 	const {
-		anarchyBattleSchedules,
-		lang,
-		fest,
-		currentFest,
-		regularLanguage
+		regularBattleSchedules,
+		fest
 	} = storeToRefs(store)
-
-	const typeObj = {
-		'CHALLENGE': '挑战',
-		'OPEN': '开放'
-	}
 
 	const isMore = ref(false)
 	const list = computed(() => {
-		return isMore.value ? anarchyBattleSchedules.value : anarchyBattleSchedules.value.slice(0, 2)
+		return isMore.value ? regularBattleSchedules.value : regularBattleSchedules.value.slice(0, 4)
 	})
 
-	// 跳转到X比赛
-	const toXBattle = () => {
+	const typeObj = {
+		'CHALLENGE': '挑战',
+		'REGULAR': '开放'
+	}
+
+	const toEventBattle = () => {
 		uni.navigateTo({
-			url: './xBattle'
+			url: './eventBattle'
 		})
 	}
 
@@ -93,13 +86,13 @@
 	onShareAppMessage(() => {
 		return {
 			title: 'Splatoon3日程',
-			path: '/pages/anarchyBattle/anarchyBattle'
+			path: '/pages/regularBattle/regularBattle'
 		}
 	})
 </script>
 
 <style lang="scss" scoped>
-	.bankaraSchedules {
+	.regularBattle {
 		position: relative;
 		padding-bottom: 50rpx;
 		min-height: 100vh;
@@ -108,21 +101,17 @@
 			position: absolute;
 			width: 20rpx;
 			height: 100%;
-			background-color: #8a4438;
+			background-color: #81913d;
 		}
 
 		.container {
 			padding: 0 30rpx 0 50rpx;
+			overflow: hidden;
 
 			.block {
 				position: relative;
-				height: 550rpx;
-				margin-top: 50rpx;
-
-				&:first-child {
-					margin-top: 0;
-					padding-top: 32rpx;
-				}
+				height: 250rpx;
+				margin-top: 32rpx;
 
 				.state {
 					position: absolute;
@@ -144,6 +133,19 @@
 					}
 				}
 
+				:deep(.coopStage) {
+					position: absolute;
+					top: 70rpx;
+				}
+
+
+				&.fest {
+					:deep(.coopStage) {
+						position: static;
+						top: 0rpx;
+					}
+				}
+
 				.challenge-and-open {
 					padding-top: 50rpx;
 					color: #fff;
@@ -156,10 +158,13 @@
 							background-color: #5a3cf4;
 							padding: 0 10rpx;
 							line-height: 40rpx;
-							border-radius: 8rpx;
 						}
 					}
 				}
+			}
+
+			.fest {
+				height: 550rpx;
 			}
 
 			.empty {
@@ -177,35 +182,11 @@
 			}
 		}
 
-		.fest-box {
-			position: absolute;
-			top: 100rpx;
-			left: 50%;
-			transform: translateX(-50%);
-			width: 90%;
-			padding: 0 20rpx;
-			border-radius: 20rpx;
-			background-color: #1a1b20;
-			color: #fff;
-			text-align: center;
-			box-sizing: border-box;
-
-			.fest-title {
-				border-bottom: 2rpx dashed #fff;
-			}
-
-			image {
-				width: 600rpx;
-				height: 300rpx;
-				object-fit: cover;
-			}
-		}
-
-		.xBtn {
+		.eventBtn {
 			position: fixed;
 			top: 20rpx;
 			right: 0rpx;
-			width: 160rpx;
+			width: 200rpx;
 			border-radius: 30rpx 0 0 30rpx;
 			background-color: #1a1b20;
 			color: #fff;

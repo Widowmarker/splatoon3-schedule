@@ -2,14 +2,13 @@
 	<view class="regularBattle splatoon">
 		<view class="time-bar"></view>
 		<view class="container">
-			<view class="block" v-for="item in list" :key="item?.startTime"
-				:class="[!item.regularMatchSetting && 'empty', item.regularMatchSetting.length && 'fest']">
-				<template v-if="!item.regularMatchSetting.length">
+			<view class="block" v-for="item in list" :key="item?.startTime">
+				<template v-if="item">
 					<view class="time state">{{handleTime(item.startTime)}}</view>
-					<coopStage :leftUrl="item.regularMatchSetting.vsStages[0].image.url"
-						:leftName="item.regularMatchSetting.vsStages[0].id"
-						:rightUrl="item.regularMatchSetting.vsStages[1].image.url"
-						:rightName="item.regularMatchSetting.vsStages[1].id"></coopStage>
+					<coopStage :leftUrl="item.stages[0]"
+						:leftName="item.stages[0]"
+						:rightUrl="item.stages[1]"
+						:rightName="item.stages[1]"></coopStage>
 				</template>
 				<template v-else>
 					<!-- 祭典日程 -->

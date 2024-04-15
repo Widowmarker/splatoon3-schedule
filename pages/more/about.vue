@@ -3,7 +3,7 @@
 		<view class="container">
 			<view class="splatoon title">ABOUT</view>
 			<view class="content">
-				<view>小程序中日程、打工、商店和祭典等数据均来自：https://splatoon3.ink/</view>
+				<!-- <view>小程序中日程、打工、商店和祭典等数据均来自：https://splatoon3.ink/</view> -->
 				<view>小程序源码地址：https://github.com/Widowmarker/splatoon3-schedule</view>
 				<view>意见反馈邮箱：aa704472894@gmail.com</view>
 				<view class="blessing">一起成为999的打工仔吧！！！</view>

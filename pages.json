@@ -27,15 +27,14 @@
 				"backgroundColor": "#191919"
 			}
 		},
-		{
-			"path": "pages/gear/gear",
-			"style": {
-				"navigationBarTitleText": "商城",
-				"enablePullDownRefresh": true,
-				"backgroundColor": "#191919"
-			}
-
-		},
+		// {
+		// 	"path": "pages/gear/gear",
+		// 	"style": {
+		// 		"navigationBarTitleText": "商城",
+		// 		"enablePullDownRefresh": true,
+		// 		"backgroundColor": "#191919"
+		// 	}
+		// },
 		{
 			"path": "pages/more/more",
 			"style": {
@@ -128,12 +127,12 @@
 				"iconPath": "static/salmon-run.png",
 				"selectedIconPath": "static/salmon-run-selected.png"
 			},
-			{
-				"pagePath": "pages/gear/gear",
-				"text": "商城",
-				"iconPath": "static/gear.png",
-				"selectedIconPath": "static/gear-selected.png"
-			},
+			// {
+			// 	"pagePath": "pages/gear/gear",
+			// 	"text": "商城",
+			// 	"iconPath": "static/gear.png",
+			// 	"selectedIconPath": "static/gear-selected.png"
+			// },
 			{
 				"pagePath": "pages/more/more",
 				"text": "更多",
